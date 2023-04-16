@@ -1,7 +1,17 @@
 import flet as ft
+import PIL.Image as Image
+import base64
 
 # TODO: janlup kalo pindah pake page.clean()
 # TODO: janlup di main screen matiin scroll
+
+
+def blob_to_base64(blob: str):
+    return base64.b64encode(blob).decode("utf-8")
+def image_to_blob(imagefile: str):
+    with open(imagefile, "rb") as f:
+        blob = f.read()
+    return blob
 
 def default_page(page: ft.Page, title: str):
     page.title = title
