@@ -132,16 +132,58 @@ class CatatanTarget(ft.UserControl):
 
 
 class DaftarCatatanTarget(ft.UserControl):
-    def __init__(self, page: ft.Page):
+    # def __init__(self, page: ft.Page):
+    def __init__(self):
         super().__init__()
-        self.page = page
+        # self.page = page
+        self._catatan_target_controller = catatan_target_controller.CatatanTargetController()
+        self.catatan_target_list = self._catatan_target_controller.getListCatatanTarget()
+        self.belum_catatan_target_list = self._catatan_target_controller.getBelumCatatanTarget()
+        self.berlangsung_catatan_target_list = self._catatan_target_controller.getBerlangsungCatatanTarget()
+        self.selesai_catatan_target_list = self._catatan_target_controller.getSelesaiCatatanTarget()
+        self.semua_catatan_target_list = self._catatan_target_controller.getSemuaCatatanTarget()
+        self.colRef = ft.Ref[ft.Column]()
+    
+    def belum_catatan_target_on_click(self, e):
+        self.colRef.current.controls.clear()
+        self.colRef.current.controls = [CatatanTarget(i) for i in self.belum_catatan_target_list]
+        self.update()
+        self.page.update()
+
+    def berlangsung_catatan_target_on_click(self, e):
+        self.colRef.current.controls.clear()
+        self.colRef.current.controls = [CatatanTarget(i) for i in self.berlangsung_catatan_target_list]
+        self.update()
+        self.page.update()
+
+    def selesai_catatan_target_on_click(self, e):
+        self.colRef.current.controls.clear()
+        self.colRef.current.controls = [CatatanTarget(i) for i in self.selesai_catatan_target_list]
+        self.update()
+        self.page.update()
+
+    def semua_catatan_target_on_click(self, e):
+        self.colRef.current.controls.clear()
+        self.colRef.current.controls = [CatatanTarget(i) for i in self.semua_catatan_target_list]
+        self.update()
+        self.page.update()
+    
+    def search_on_change(self, e):
+        self.colRef.current.controls.clear()
+        self.colRef.current.controls = [CatatanTarget(i) for i in self._catatan_target_controller.getCatatanTargetFromSearch(e.control.value)]
+        if len(self.colRef.current.controls) == 0:
+            self.colRef.current.controls = [ft.Text(
+                value="Tidak ada catatan target yang dicari",
+                size=30,
+                text_align=ft.TextAlign.CENTER,
+            )]
+        self.update()
+        self.page.update()
 
     def build(self):
-        _catatan_target_controller = catatan_target_controller.CatatanTargetController()
-        catatan_target_list = _catatan_target_controller.getListCatatanTarget()
-
-        if len(catatan_target_list) == 0:
-            return ft.Container(
+        if len(self.catatan_target_list) == 0:
+            # TODO : styling
+            self.this_content = ft.Container(
                 content=ft.Text(
                     value="Tidak ada catatan target",
                     size=30,
@@ -152,14 +194,93 @@ class DaftarCatatanTarget(ft.UserControl):
                 height=300,
                 width=1164,
             )
-        return ft.Container(
+        else :
+            self.this_content = ft.Container(
             content=ft.Column(
-                controls=[
-                    CatatanTarget(i) for i in catatan_target_list
-                ],
+                ref=self.colRef,
+                # controls=[
+                #     # Tambah Catatan Target
+                #     CatatanTarget(i) for i in self.catatan_target_list
+                # ],
                 spacing=15,
             ),
-            width=1164,
             bgcolor=ft.colors.TRANSPARENT,
             alignment=ft.alignment.center,
+        )
+        self.colRef.current.controls = [CatatanTarget(i) for i in self.catatan_target_list]
+
+        return ft.Container(
+            alignment=ft.alignment.center,
+            bgcolor=ft.colors.TRANSPARENT,
+            content=ft.Column(
+                controls=[
+                    ft.Container(
+                        # TODO styling Textfieldnya
+                        content=ft.TextField(
+                            hint_text="Cari catatan target",
+                            on_change=self.search_on_change,
+                            # hint_style=ft.TextStyle(
+                            # )
+                            # text_style=ft.TextStyle(
+                            # )
+                            # border=
+                        ),
+                        bgcolor=ft.colors.YELLOW,
+                        height=50,
+                        width=1164,
+                    ),
+                    ft.Row(
+                        controls=[
+                            ft.Divider(
+                                height=10,
+                                visible=False,
+                            ),
+                            # TODO : Styling button nya
+                            ft.TextButton(
+                                text="SEMUA",
+                                on_click=self.semua_catatan_target_on_click,
+                                style=ft.ButtonStyle(
+                                    bgcolor=ft.colors.RED,
+                                    color=ft.colors.BLUE,
+                                ),
+                                width=250,
+                                height=50,
+                            ),
+                            ft.TextButton(
+                                text="BELUM",
+                                on_click=self.belum_catatan_target_on_click,
+                                style=ft.ButtonStyle(
+                                    bgcolor=ft.colors.RED,
+                                    color=ft.colors.BLUE,
+                                ),
+                                width=250,
+                                height=50,
+                            ),
+                            ft.TextButton(
+                                text="BERLANGSUNG",
+                                on_click=self.berlangsung_catatan_target_on_click,
+                                style=ft.ButtonStyle(
+                                    bgcolor=ft.colors.RED,
+                                    color=ft.colors.BLUE,
+                                ),
+                                width=250,
+                                height=50,
+                            ),
+                            ft.TextButton(
+                                text="SELESAI",
+                                on_click=self.selesai_catatan_target_on_click,
+                                style=ft.ButtonStyle(
+                                    bgcolor=ft.colors.RED,
+                                    color=ft.colors.BLUE,
+                                ),
+                                width=250,
+                                height=50,
+                            )
+                        ],
+                        spacing=52,
+                        # alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                    ),
+                    self.this_content,
+                ]
+            )
         )

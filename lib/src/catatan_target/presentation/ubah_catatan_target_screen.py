@@ -151,8 +151,11 @@ def main(page: ft.Page, id_catatan_target: int):
                 status=statusPick.get_status(),
             )
 
-            _catatan_target_controller.Memperbarui(_catatan_target)
-            page.snack_bar.content.value = "Catatan target berhasil diubah"
+            ubah = _catatan_target_controller.Memperbarui(_catatan_target)
+            if ubah == False:
+                page.snack_bar.content.value = "Catatan target gagal diubah"
+            else:
+                page.snack_bar.content.value = "Catatan target berhasil diubah"
             page.snack_bar.open = True
             page.update()
 

@@ -35,12 +35,14 @@ def main(page: ft.Page):
                     catatan_target_widget.HomeButton(page),
                     ft.VerticalDivider(
                         width=10,
+                        visible=False,
                     ),
                     ft.Container(
                           content=ft.Column(
                               controls=[
                                   ft.Divider(
                                         height=10,
+                                        visible=False,
                                   ),
 
                                   ft.Row(
@@ -59,13 +61,16 @@ def main(page: ft.Page):
 
                                   ft.Divider(
                                         height=10,
+                                        visible=False,
                                   ),
 
-                                  catatan_target_widget.DaftarCatatanTarget(page),
+                                #   catatan_target_widget.DaftarCatatanTarget(page),
+                                  catatan_target_widget.DaftarCatatanTarget(),
                               ],
                               spacing=0,
-                              alignment=ft.MainAxisAlignment.CENTER,
+                              alignment=ft.MainAxisAlignment.START,
                               horizontal_alignment=ft.CrossAxisAlignment.START,
+                              expand=True,
                           ),
                       )
                     ],

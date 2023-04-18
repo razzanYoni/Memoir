@@ -139,13 +139,16 @@ def main(page: ft.Page):
                 return
 
             _catatan_target_controller = catatan_target_controller.CatatanTargetController()
-            _catatan_target_controller.Tambah(
+            tambah_valid = _catatan_target_controller.Tambah(
                 date,
                 time,
                 target.value,
                 waktu_capai.get_date()
             )
-            page.snack_bar.content.value = "Catatan target berhasil ditambahkan"
+            if tambah_valid :
+                page.snack_bar.content.value = "Catatan target berhasil ditambahkan"
+            else:
+                page.snack_bar.content.value = "Catatan target gagal ditambahkan"
             page.snack_bar.open = True
             page.update()
 
