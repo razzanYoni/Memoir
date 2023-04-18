@@ -2,7 +2,7 @@ import flet as ft
 from datetime import datetime
 from time import sleep
 
-import lib.home_page.catatan_jadwal_widget as catatan_jadwal_widget
+import lib.src.catatan_jadwal.presentation.catatan_jadwal_widget as catatan_jadwal_widget
 from catatan_jadwal_widget import CalendarButton
 
 
@@ -51,7 +51,7 @@ def main(page: ft.Page):
                 spacing=0,
             ),
             expand=True,
-            image_src="images/home_page_bg.png",
+            image_src="assets/images/home_page_bg.png",
             image_fit=ft.ImageFit.COVER,
             image_repeat=ft.ImageRepeat.NO_REPEAT,
         )
