@@ -2,8 +2,8 @@ import flet as ft
 from datetime import datetime
 from time import sleep
 
-import lib.home_page.main_widget as main_widget
-from main_widget import CalendarButton
+import lib.home_page.catatan_jadwal_widget as catatan_jadwal_widget
+from catatan_jadwal_widget import CalendarButton
 
 
 def main(page: ft.Page):
@@ -27,9 +27,9 @@ def main(page: ft.Page):
 
     page.theme = ft.Theme(font_family="Inter")
 
-    calendar = main_widget.CalendarLeft()
-    calendar_button = main_widget.CalendarButton()
-    notification = main_widget.Notification()
+    calendar = catatan_jadwal_widget.CalendarLeft()
+    calendar_button = catatan_jadwal_widget.CalendarButton()
+    notification = catatan_jadwal_widget.Notification()
 
     left_column = ft.Container(
         content=ft.Column(
