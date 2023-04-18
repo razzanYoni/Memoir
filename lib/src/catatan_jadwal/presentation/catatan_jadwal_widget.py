@@ -1,7 +1,6 @@
 import flet as ft
 from datetime import datetime
 from time import sleep
-import PyQt5.QtWidgets as QtWidgets
 import lib.src.artikel.presentation.artikel_screen as artikel_screen
 import lib.src.catatan_jadwal.presentation.catatan_jadwal_screen as catatan_jadwal_screen
 import lib.src.catatan_target.presentation.catatan_target_screen as catatan_target_screen
@@ -39,37 +38,6 @@ class CalendarLeft(ft.Container):
             alignment=ft.alignment.center,
             bgcolor=ft.colors.TRANSPARENT
 )
-
-class CalendarButton(ft.Container):
-    def __init__(self):
-        super().__init__(
-            content=ft.Container(
-                content=ft.Text(
-                    value="Calendar",
-                    size=24,
-                    color="#FFFFFF",
-                    font_family="Inter Medium",
-                    opacity=1,
-                    style="margin: 0 auto;"
-                ),
-                width=120,
-                height=40,
-                border=ft.Border(
-                    width=2,
-                    style=ft.BorderStyle.SOLID,
-                    color="#6E7198"
-                ),
-                bgcolor="#06184E",
-                on_click=self.toggle_color
-            )
-        )
-
-    def toggle_color(self, event):
-        if self.content.bgcolor == "#06184E":
-            self.content.bgcolor = "#F99494"
-        else:
-            self.content.bgcolor = "#06184E"
-
 
 class CalendarDate(ft.Container):
     def __init__(self):
@@ -188,6 +156,9 @@ class Calendar(ft.Container):
 class CalendarButton(ft.Container):
     def __init__(self):
         super().__init__(
+            height=50,
+            width=150,
+            bgcolor="#FFFFFF",
         )
 
 class Agenda(ft.Container):

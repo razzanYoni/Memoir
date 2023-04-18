@@ -2,7 +2,6 @@ import flet as ft
 from datetime import datetime
 from time import sleep
 
-import lib.src.catatan_jadwal.presentation.ubah_catatan_jadwal_widget as ubah_catatan_jadwal_widget
 import lib.src.catatan_jadwal.presentation.catatan_jadwal_screen as catatan_jadwal_screen
 import lib.src.catatan_jadwal.controller.catatan_jadwal_controller as catatan_jadwal_controller
 import lib.src.catatan_jadwal.presentation.catatan_jadwal_widget as catatan_jadwal_widget

@@ -37,6 +37,8 @@ def main(page: ft.Page):
             visible=True,
             expand=True,
             spacing=0,
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            
         ),
         expand=True,
         padding=ft.padding.only(top=30, left=0, bottom=0, right=0),
