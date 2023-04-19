@@ -47,7 +47,6 @@ class DatePicker(ft.Container):
             options=[ft.dropdown.Option(str(i)) for i in range(1, 32)],
             value=str(day),
             width=70,
-            alignment=ft.alignment.top_center,
         )
 
         self.monthDD = ft.Dropdown(
