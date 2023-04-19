@@ -7,7 +7,7 @@ from catatan_jadwal_widget import CalendarButton
 
 
 def main(page: ft.Page):
-    page.title = "Memoir"
+    page.title = "Memoir - Catatan Jadwal"
 
     page.window_width = 1440
     page.window_height = 800
