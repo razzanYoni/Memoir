@@ -3,11 +3,11 @@ from datetime import datetime
 from time import sleep
 import lib.src.artikel.presentation.artikel_screen as artikel_screen
 import lib.src.catatan_jadwal.presentation.catatan_jadwal_screen as catatan_jadwal_screen
+import lib.src.catatan_jadwal.presentation.ubah_catatan_jadwal_screen as ubah_catatan_jadwal_screen
 import lib.src.catatan_target.presentation.catatan_target_screen as catatan_target_screen
 import lib.src.catatan_kegiatan.presentation.catatan_kegiatan_screen as catatan_kegiatan_screen
 import lib.src.catatan_jadwal.data.catatan_jadwal_model as catatan_jadwal_model
 import lib.src.catatan_jadwal.data.catatan_jadwal_repo as catatan_jadwal_repo
-import lib.src.catatan_jadwal.presentation.awal_ubah_catatan_jadwal_screen as awal_ubah_catatan_jadwal_screen
 import lib.src.catatan_jadwal.controller.catatan_jadwal_controller as catatan_jadwal_controller
 import lib.home_page.main_screen as main_screen
 
@@ -179,7 +179,7 @@ class CalendarButton(ft.Container):
     def ubah_jadwal_button_on_click(self, e):
         self.page.controls.clear()
         id_catatan_jadwal = 0
-        awal_ubah_catatan_jadwal_screen.main(self.page, id_catatan_jadwal)
+        ubah_catatan_jadwal_screen.main(self.page, id_catatan_jadwal)
         self.page.update()
 
     def __init__(self, page: ft.Page):
@@ -306,7 +306,7 @@ class Reminders(ft.UserControl):
     def ubah_jadwal_button_on_click(self, e):
         self.page.controls.clear()
         id_catatan_jadwal = 0
-        awal_ubah_catatan_jadwal_screen.main(self.page, id_catatan_jadwal)
+        ubah_catatan_jadwal_screen.main(self.page, id_catatan_jadwal)
         self.page.update()
 
 
