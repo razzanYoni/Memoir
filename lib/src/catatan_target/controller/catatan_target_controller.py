@@ -32,6 +32,7 @@ class CatatanTargetController:
             # Tanggal tidak valid
             if tanggal_converted < now.date():
                 found = False
+                raise Exception('Tanggal kureng')
             self.conn = sqlite3.connect('./db/Memoir.db')
             self.c = self.conn.cursor()
             self.c.execute("INSERT INTO catatan_target (tanggal, waktu, target, status, waktu_capai) VALUES (?, ?, ?, ?, ?)", (tanggal, waktu, target, "Belum", waktu_capai))
@@ -50,6 +51,7 @@ class CatatanTargetController:
             # Tanggal tidak valid
             if tanggal_converted < now.date():
                 found = False
+                raise Exception('Tanggal kureng')
             self.conn = sqlite3.connect('./db/Memoir.db')
             self.c = self.conn.cursor()
             self.c.execute("UPDATE catatan_target SET target = ?, status = ?, waktu_capai = ? WHERE id_target = ?", (catatan_target.getTarget(), catatan_target.getStatus(), catatan_target.getWaktuCapai(), catatan_target.getID()))
@@ -57,6 +59,7 @@ class CatatanTargetController:
             self.conn.close()
         except Exception as e:
             print(e)
+            print("exception from controller")
             found = False
         return found
 
@@ -150,4 +153,4 @@ class CatatanTargetController:
 
 if __name__ == "__main__":
     controller = CatatanTargetController()
-    controller.Tambah('2020-01-01', '03:03:03', "haaa", '2020-03-02')
+    controller.Tambah('2020-01-01', '03:03:03', "haaa", '2024-03-02')

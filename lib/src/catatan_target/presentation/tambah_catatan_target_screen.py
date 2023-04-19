@@ -1,6 +1,7 @@
 import flet as ft
+from datetime import date
 from time import sleep
-from PIL import Image
+import time
 
 import lib.src.catatan_target.presentation.catatan_target_screen as catatan_target_screen
 import lib.src.catatan_target.controller.catatan_target_controller as catatan_target_controller
@@ -121,8 +122,6 @@ def main(page: ft.Page):
         )
 
     waktu_capai = date_picker.DatePicker()
-    date ="2020-11-01"
-    time = "03:03:03"
 
     def batal_tambah_catatan_target(e):
         page.dialog = cancel_dialog
@@ -140,8 +139,8 @@ def main(page: ft.Page):
 
             _catatan_target_controller = catatan_target_controller.CatatanTargetController()
             tambah_valid = _catatan_target_controller.Tambah(
-                date,
-                time,
+                date.today().strftime("%Y-%m-%d"),
+                time.strftime("%H:%M:%S", time.localtime()),
                 target.value,
                 waktu_capai.get_date()
             )

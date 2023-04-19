@@ -1,5 +1,7 @@
 import flet as ft
 from time import sleep
+from datetime import date
+import time
 
 import lib.src.catatan_target.presentation.catatan_target_screen as catatan_target_screen
 import lib.src.catatan_target.controller.catatan_target_controller as catatan_target_controller
@@ -124,10 +126,6 @@ def main(page: ft.Page, id_catatan_target: int):
 
     statusPick = status_picker.StatusPicker(status=catatan_target[5])
 
-    # TODO: change dummy
-    date = "2020-11-01"
-    time = "03:03:03"
-
     def batal_ubah_catatan_target(e):
         page.dialog = cancel_dialog
         page.dialog.open = True
@@ -144,8 +142,8 @@ def main(page: ft.Page, id_catatan_target: int):
 
             _catatan_target = catatan_target_model.CatatanTarget(
                 id_target=catatan_target[0],
-                tanggal=date,
-                waktu=time,
+                tanggal=date.today().strftime("%Y-%m-%d"),
+                waktu=time.strftime("%H:%M:%S", time.localtime()),
                 target=target.value,
                 waktu_capai=waktu_capai.get_date(),
                 status=statusPick.get_status(),
@@ -164,6 +162,7 @@ def main(page: ft.Page, id_catatan_target: int):
             page.snack_bar.open = True
             page.update()
             print(e)
+            print("exception from ubah")
 
         page.clean()
         catatan_target_screen.main(page)

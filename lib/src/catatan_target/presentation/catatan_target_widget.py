@@ -175,14 +175,28 @@ class DaftarCatatanTarget(ft.UserControl):
         self.selesaiButton.style.side=buttonSide(False)
         self.semuaButton.style.side=buttonSide(False)
 
-        self.colRef.current.controls.clear()
-        self.colRef.current.controls = [CatatanTarget(i) for i in self.belum_catatan_target_list]
-        if len(self.colRef.current.controls) == 0:
-            self.colRef.current.controls = [ft.Text(
-                value="Tidak ada catatan target berstatus \"Belum\"",
-                size=30,
-                text_align=ft.TextAlign.CENTER,
-            )]
+        try:
+            self.colRef.current.controls.clear()
+            self.colRef.current.controls = [CatatanTarget(i) for i in self.belum_catatan_target_list]
+
+            if len(self.colRef.current.controls) == 0:
+                self.colRef.current.controls = [ft.Container(
+                                                    ft.Text(
+                                                        value="Tidak ada catatan target berstatus \"Belum\"",
+                                                        size=30,
+                                                        text_align=ft.TextAlign.CENTER,
+                                                    ),
+
+                                                    alignment=ft.alignment.center,
+                                                    height=300,
+                                                    width=1164
+                                                    )
+                                                ]
+        except Exception as e:
+            print("-----")
+            print(e)
+            print("-----")
+
         self.update()
         self.page.update()
 
@@ -196,14 +210,28 @@ class DaftarCatatanTarget(ft.UserControl):
         self.selesaiButton.style.side=buttonSide(False)
         self.semuaButton.style.side=buttonSide(False)
 
-        self.colRef.current.controls.clear()
-        self.colRef.current.controls = [CatatanTarget(i) for i in self.berlangsung_catatan_target_list]
-        if len(self.colRef.current.controls) == 0:
-            self.colRef.current.controls = [ft.Text(
-                value="Tidak ada catatan target berstatus \"Berlangsung\"",
-                size=30,
-                text_align=ft.TextAlign.CENTER,
-            )]
+        try:
+            self.colRef.current.controls.clear()
+            self.colRef.current.controls = [CatatanTarget(i) for i in self.berlangsung_catatan_target_list]
+
+            if len(self.colRef.current.controls) == 0:
+                self.colRef.current.controls = [ft.Container(
+                                                    ft.Text(
+                                                        value="Tidak ada catatan target berstatus \"Berlangsung\"",
+                                                        size=30,
+                                                        text_align=ft.TextAlign.CENTER,
+                                                    ),
+
+                                                    alignment=ft.alignment.center,
+                                                    height=300,
+                                                    width=1164
+                                                    )
+                                                ]
+        except Exception as e:
+            print("-----")
+            print(e)
+            print("-----")
+
         self.update()
         self.page.update()
 
@@ -217,14 +245,28 @@ class DaftarCatatanTarget(ft.UserControl):
         self.selesaiButton.style.side=buttonSide(True)
         self.semuaButton.style.side=buttonSide(False)
 
-        self.colRef.current.controls.clear()
-        self.colRef.current.controls = [CatatanTarget(i) for i in self.selesai_catatan_target_list]
-        if len(self.colRef.current.controls) == 0:
-            self.colRef.current.controls = [ft.Text(
-                value="Tidak ada catatan target berstatus \"Selesai\"",
-                size=30,
-                text_align=ft.TextAlign.CENTER,
-            )]
+        try:
+            self.colRef.current.controls.clear()
+            self.colRef.current.controls = [CatatanTarget(i) for i in self.selesai_catatan_target_list]
+
+            if len(self.colRef.current.controls) == 0:
+                self.colRef.current.controls = [ft.Container(
+                                                    ft.Text(
+                                                        value="Tidak ada catatan target berstatus \"Selesai\"",
+                                                        size=30,
+                                                        text_align=ft.TextAlign.CENTER,
+                                                    ),
+
+                                                    alignment=ft.alignment.center,
+                                                    height=300,
+                                                    width=1164
+                                                    )
+                                                ]
+        except Exception as e:
+            print("-----")
+            print(e)
+            print("-----")
+
         self.update()
         self.page.update()
 
@@ -238,14 +280,28 @@ class DaftarCatatanTarget(ft.UserControl):
         self.selesaiButton.style.side=buttonSide(False)
         self.semuaButton.style.side=buttonSide(True)
 
-        self.colRef.current.controls.clear()
-        self.colRef.current.controls = [CatatanTarget(i) for i in self.semua_catatan_target_list]
-        if len(self.colRef.current.controls) == 0:
-            self.colRef.current.controls = [ft.Text(
-                value="Tidak ada catatan target",
-                size=30,
-                text_align=ft.TextAlign.CENTER,
-            )]
+        try:
+            self.colRef.current.controls.clear()
+            self.colRef.current.controls = [CatatanTarget(i) for i in self.semua_catatan_target_list]
+
+            if len(self.colRef.current.controls) == 0:
+                self.colRef.current.controls = [ft.Container(
+                                                    ft.Text(
+                                                        value="Tidak ada catatan target",
+                                                        size=30,
+                                                        text_align=ft.TextAlign.CENTER,
+                                                    ),
+
+                                                    alignment=ft.alignment.center,
+                                                    height=300,
+                                                    width=1164
+                                                    )
+                                                ]
+        except Exception as e:
+            print("-----")
+            print(e)
+            print("-----")
+
         self.update()
         self.page.update()
 
@@ -259,14 +315,38 @@ class DaftarCatatanTarget(ft.UserControl):
         self.selesaiButton.style.side=buttonSide(False)
         self.semuaButton.style.side=buttonSide(True)
 
-        self.colRef.current.controls.clear()
-        self.colRef.current.controls = [CatatanTarget(i) for i in self._catatan_target_controller.getCatatanTargetFromSearch(e.control.value)]
-        if len(self.colRef.current.controls) == 0:
-            self.colRef.current.controls = [ft.Text(
-                value="Tidak ada catatan target yang dicari",
-                size=30,
-                text_align=ft.TextAlign.CENTER,
-            )]
+        try:
+            self.colRef.current.controls.clear()
+            self.colRef.current.controls = [CatatanTarget(i) for i in self._catatan_target_controller.getCatatanTargetFromSearch(e.control.value)]
+
+            if len(self.colRef.current.controls) == 0:
+                self.this_content = ft.Container(
+                content=ft.Text(
+                    value="Tidak ada catatan target",
+                    size=30,
+                    text_align=ft.TextAlign.CENTER,
+                ),
+                alignment=ft.alignment.center,
+                height=300,
+                width=1164,
+            )
+                self.colRef.current.controls = [ft.Container(
+                                                    ft.Text(
+                                                        value="Tidak ada catatan target yang dicari",
+                                                        size=30,
+                                                        text_align=ft.TextAlign.CENTER,
+                                                    ),
+
+                                                    alignment=ft.alignment.center,
+                                                    height=300,
+                                                    width=1164
+                                                    )
+                                                ]
+        except Exception as e:
+            print("-----")
+            print(e)
+            print("-----")
+
         self.update()
         self.page.update()
 
@@ -313,7 +393,6 @@ class DaftarCatatanTarget(ft.UserControl):
                                     height=50,
                                 )
         if len(self.catatan_target_list) == 0:
-            # TODO : styling
             self.this_content = ft.Container(
                 content=ft.Text(
                     value="Tidak ada catatan target",
@@ -321,21 +400,20 @@ class DaftarCatatanTarget(ft.UserControl):
                     text_align=ft.TextAlign.CENTER,
                 ),
                 alignment=ft.alignment.center,
-                expand=True,
                 height=300,
                 width=1164,
             )
         else :
             self.this_content = ft.Container(
             content=ft.Column(
+                controls = [CatatanTarget(i) for i in self.catatan_target_list],
                 ref=self.colRef,
                 spacing=15,
             ),
             bgcolor=ft.colors.TRANSPARENT,
             alignment=ft.alignment.center,
         )
-        self.colRef.current.controls = [CatatanTarget(i) for i in self.catatan_target_list]
-        print("halo")
+
         return ft.Container(
             alignment=ft.alignment.center,
             bgcolor=ft.colors.TRANSPARENT,
@@ -375,6 +453,7 @@ class DaftarCatatanTarget(ft.UserControl):
                         border_radius=25,
                         padding=ft.padding.symmetric(horizontal=20)
                     ),
+
                     ft.Row(
                         spacing=20,
                         controls=[
@@ -392,4 +471,3 @@ class DaftarCatatanTarget(ft.UserControl):
                 ]
             )
         )
-
