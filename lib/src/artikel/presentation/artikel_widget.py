@@ -199,7 +199,6 @@ class DaftarArtikel(ft.UserControl):
                 bgcolor=ft.colors.TRANSPARENT,
                 alignment=ft.alignment.center,
             )
-        # print(len(self.artikel_list))
         self.colRef.current.controls = [Artikel(i) for i in self.artikel_list]
     
         return ft.Container(
@@ -210,20 +209,32 @@ class DaftarArtikel(ft.UserControl):
                     # Search Bar,
                     ft.Container(
                         # TODO styling Textfieldnya
-                        content=ft.TextField(
-                            hint_text="Cari judul artikel",
-                            on_change=self.search_on_change,
-                            hint_style=ft.TextStyle(
-                                color="#FFFFFF",
-                                size=20,
-                                font_family="Inter ExtraLight",
-                            ),
-                            text_style=ft.TextStyle(
-                                color="#FFFFFF",
-                                size=20,
-                                font_family="Inter ExtraLight",
-                            ),
-                            border_color="transparent"
+                        content=ft.Row(
+                            controls = [
+                                ft.Container(
+                                    image_src="icons/search_icon.png",
+                                    width=25,
+                                    height=25,
+                                    margin = ft.margin.only(left=5, top=-16, right=0, bottom=0),
+                                    # padding=ft.padding.only(left=0, top=-10, right=0, bottom=0),
+                                    
+                                ),
+                                ft.TextField(
+                                    hint_text="Cari judul artikel",
+                                    on_change=self.search_on_change,
+                                    hint_style=ft.TextStyle(
+                                        color="#FFFFFF",
+                                        size=20,
+                                        font_family="Inter ExtraLight",
+                                    ),
+                                    text_style=ft.TextStyle(
+                                        color="#FFFFFF",
+                                        size=20,
+                                        font_family="Inter ExtraLight",
+                                    ),
+                                    border_color="transparent"
+                                ),
+                            ],
                         ),
                         # border= "transparent",
                         border_radius=25,
