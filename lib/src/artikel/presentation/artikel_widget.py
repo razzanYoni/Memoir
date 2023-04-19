@@ -145,12 +145,37 @@ class DaftarArtikel(ft.UserControl):
     def __init__(self, page: ft.Page):
         super().__init__()
         self.page = page
+        self._artikel_controller = artikel_controller.ArtikelController()
+        self.artikel_list = self._artikel_controller.getListArtikel()
+        self.colRef = ft.Ref[ft.Column]()
+    
+    def search_on_change(self, e):
+        self.colRef.current.controls.clear()
+        self.colRef.current.controls = [Artikel(i) for i in self._artikel_controller.getArtikelFromSearch(e.control.value)]
+        if len(self.colRef.current.controls) == 0:
+            self.colRef.current.controls = [
+                ft.Divider(
+                    height = 2,
+                    color = "#60648B",
+                ),
+                ft.Container(
+                    ft.Text(
+                    value="Tidak ada artikel yang dicari",
+                    size=20,
+                    text_align=ft.TextAlign.CENTER,
+                    font_family="Inter Light",
+                    color = "#60648B",
+                
+                    ),
+                width = 1300,
+            )]
+        self.update()
+        self.page.update()
 
     def build(self):
-        _artikel_controller = artikel_controller.ArtikelController()
-        artikel_list = _artikel_controller.getListArtikel()  
-        if len(artikel_list) == 0:
-            return ft.Container(
+        # This content
+        if len(self.artikel_list) == 0:
+            self.this_content = ft.Container(
                 content=ft.Text(
                     value="Tidak ada Artikel",
                     size=30,
@@ -161,17 +186,90 @@ class DaftarArtikel(ft.UserControl):
                 height=300,
                 width=1164,
             )
+        else:
+            self.this_content = ft.Container(
+                content=ft.Column(
+                    ref=self.colRef,
+                    # controls=[
+                    #     Artikel(i) for i in self.artikel_list
+                    # ],
+                    spacing=15,
+                ),
+                width=1164,
+                bgcolor=ft.colors.TRANSPARENT,
+                alignment=ft.alignment.center,
+            )
+        # print(len(self.artikel_list))
+        self.colRef.current.controls = [Artikel(i) for i in self.artikel_list]
+    
         return ft.Container(
-            content=ft.Column(
-                controls=[
-                    Artikel(i) for i in artikel_list
-                ],
-                spacing=15,
-            ),
-            width=1164,
-            bgcolor=ft.colors.TRANSPARENT,
-            alignment=ft.alignment.center,
+            alignment = ft.alignment.center,
+            bgcolor = ft.colors.TRANSPARENT,
+            content = ft.Column(
+                controls = [
+                    # Search Bar,
+                    ft.Container(
+                        # TODO styling Textfieldnya
+                        content=ft.TextField(
+                            hint_text="Cari judul artikel",
+                            on_change=self.search_on_change,
+                            hint_style=ft.TextStyle(
+                                color="#FFFFFF",
+                                size=20,
+                                font_family="Inter ExtraLight",
+                            ),
+                            text_style=ft.TextStyle(
+                                color="#FFFFFF",
+                                size=20,
+                                font_family="Inter ExtraLight",
+                            ),
+                            border_color="transparent"
+                        ),
+                        # border= "transparent",
+                        border_radius=25,
+                        bgcolor="#06184E",
+                        height=50,
+                        width=1200,
+                        padding=ft.padding.only(left=20, top=15, right=0, bottom=0),
+                        margin=15,
+                    ),
+
+                    # Decorator
+                    ft.Container(
+                        ft.Text(
+                            value = "Jelajahi Harimu",
+                            color = "#043EDB",
+                            size=45,
+                            font_family="Inter SemiBold",
+                        ),
+                        padding=ft.padding.only(left=20, top=20, right=0, bottom=0),
+                    ),
+                    
+                    ft.Divider(
+                        height=10
+                    ),
+
+                    # Featured Article
+                    FeaturedArtikel(self.page),
+
+                    # Artikel lainnya
+                    ft.Container(
+                        ft.Text(
+                        value = "Cek artikel lainnya",
+                        size=35,
+                        font_family="Inter Light",
+                        color = "#06184E",
+                        ),
+                        padding=ft.padding.only(left=57, top=0, right=0, bottom=0),
+                    ),
+                    
+
+                    # Artikel List
+                    self.this_content,
+                ]
+            )
         )
+        
     
 class ArtikelCard(ft.UserControl):
     @staticmethod
@@ -202,8 +300,8 @@ class ArtikelCard(ft.UserControl):
 
     def artikel_on_click(self, e):
         self.page.controls.clear()
-        # self.page.clean()
-        # lihat_artikel_screen.main(self.page, self._artikel.getID())
+        self.page.clean()
+        lihat_artikel_screen.main(self.page, self._artikel.getID())
 
     def build(self):
         _artikel_controller = artikel_controller.ArtikelController()
