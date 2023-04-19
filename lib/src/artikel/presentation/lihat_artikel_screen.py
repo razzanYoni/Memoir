@@ -48,55 +48,68 @@ def main(page: ft.Page, id_artikel: int):
                     ft.Container(
                         content=ft.Column(
                             controls=[
-                                ft.Row(
-                                    controls=[
+                                ft.Container(
                                         ft.Text(
                                             value="Jelajahi Harimu",
                                             color="#043edb",
-                                            size=45,
+                                            size=35,
                                             font_family="Inter SemiBold",
-                                            text_align=ft.TextAlign.CENTER,
+                                            text_align=ft.TextAlign.LEFT,
                                         ),
-                                    ],
-                                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                                    vertical_alignment=ft.CrossAxisAlignment.CENTER,
+                                
+                                    # alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                                    # vertical_alignment=ft.CrossAxisAlignment.CENTER,
                                     height=70,
-                                    width=1300,
+                
+                                    padding=ft.padding.only(left=20, top=12, right=0, bottom=0),
+
+    
                                 ),
 
                                 ft.Container(
                                     content = ft.Row(
                                         controls = [
+                                            ft.Container(
+                                                image_src="icons/ellipse.png",
+                                                width=50,
+                                                height=50,
+                                                margin = 10,
+                                            ),
+
                                             ft.Column(
                                                 controls = [
                                                     ft.Text(
                                                         value = _artikel[3],
-                                                        color = '#FFFFFF'
+                                                        color = '#FFFFFF',
+                                                        size=25,
+                                                        font_family="Inter SemiBold",
                                                     ),
                                                     ft.Text(
                                                         value = _artikel[4],
-                                                        color = '#FFFFFF'
+                                                        color = '#FFFFFF',
+                                                        size=15,
+                                                        font_family="Inter Light",
                                                     ),
                                                 ],
-                                                
                                             ),
                                         ],
+                                        alignment=ft.MainAxisAlignment.START,
+                                        vertical_alignment=ft.CrossAxisAlignment.START,
                                     ),
-                                    # padding = ft.padding.left(20),
+                                    padding = ft.padding.only(80, 350, 20, 20),
                                     border_radius=15,
                                     bgcolor="#043edb",
                                     image_src_base64=str(blob_to_base64(_artikel[5])),
-                                    width=1100,
+                                    width=1100-20,
                                     height=500,
                                     image_fit=ft.ImageFit.COVER,
-                                    alignment=ft.alignment.bottom_center,
-                                    margin = 100,
+                                    alignment=ft.alignment.center,
+                                    margin = 20,
                                 ),
 
                                 ft.Text(
-                                    overflow=ft.TextOverflow.ELLIPSIS,
-                                    width=1300,
-                                    height=50,
+                                    # overflow=ft.TextOverflow.ELLIPSIS,
+                                    width=1100,
                                     color="#60648B",
                                     size=40,
                                     font_family="Inter SemiBold",
@@ -105,16 +118,16 @@ def main(page: ft.Page, id_artikel: int):
                                 ),
 
                                 ft.Text(
-                                    width=1300,
                                     overflow=ft.TextOverflow.VISIBLE,
                                     color="#60648B",
+                                    width=1100,
                                     size=20,
                                     font_family="Inter Light",
                                     value=_artikel[2][:len(_artikel[2])],
                                     text_align=ft.TextAlign.JUSTIFY,
                                 )
                             ],
-                            spacing=0,
+                            spacing=5,
                             # width=1163,
                             # height=1024,
                         ),
@@ -125,7 +138,7 @@ def main(page: ft.Page, id_artikel: int):
             ),
             width=page.window_width,
             alignment=ft.alignment.center,
-            padding=ft.padding.only(left=45, top=35, right=52, bottom=35),
+            padding=ft.padding.only(left=180, top=35, right=52, bottom=35),
         ),
     )
     page.update()

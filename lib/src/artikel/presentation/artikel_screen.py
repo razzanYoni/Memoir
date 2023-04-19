@@ -22,6 +22,7 @@ def main(page: ft.Page):
         "Inter ExtraLight": "fonts/Inter-ExtraLight-BETA.otf",
         "Inter Medium": "fonts/Inter-Medium.otf",
         "Inter Thin": "fonts/Inter-Thin-BETA.otf",
+        "Inter Light": "fonts/Inter-Light-BETA.otf",
     }
 
     page.scroll = ft.ScrollMode.ADAPTIVE
@@ -38,41 +39,18 @@ def main(page: ft.Page):
                             ft.VerticalDivider(
                                 width=10,
                             ),
-                            ft.Text(
-                                value = "Search Bar",
-                                size=45,
-                                font_family="Inter SemiBold",
-                            ),
-                        ]
+                            artikel_widget.DaftarArtikel(page),
+                        ],
+                        spacing=0,
+                        alignment=ft.MainAxisAlignment.START,
+                        vertical_alignment=ft.CrossAxisAlignment.START,
                     ),
 
-                    ft.Text(
-                        value = "Jelajahi Harimu",
-                        color = "#043EDB",
-                        size=45,
-                        font_family="Inter SemiBold",
-                    ),
-                    ft.Divider(
-                        height=10
-                    ),
-                    ft.Row(
-                        controls = [
-                            artikel_widget.FeaturedArtikel(page),
-                        ]
-                    ),
-                    ft.Text(
-                        value = "  Artikel lainnya",
-                        size=40,
-                        font_family="Inter Regular",
-                    ),
-
-                    artikel_widget.DaftarArtikel(page),
+                    
                 ],
-                alignment=ft.MainAxisAlignment.CENTER,
-                horizontal_alignment=ft.CrossAxisAlignment.START,
         ),
         margin = 10,
-        alignment=ft.alignment.center,
+        alignment=ft.alignment.top_left,
         padding=ft.padding.only(left=52, top=60, right=62, bottom=0),
         ),
     )
