@@ -45,14 +45,26 @@ def main(page: ft.Page):
         expand=True,
         padding=ft.padding.only(top=30, left=0, bottom=0, right=0),
     )
-
+    right_column = ft.Container(
+        content=ft.Column(
+            controls=[
+            catatan_jadwal_widget.Agenda(),
+            catatan_jadwal_widget.DaftarCatatanJadwal()],
+            visible=True,
+            expand=True,
+            spacing=0,
+            horizontal_alignment=ft.CrossAxisAlignment.START,
+        )
+    )
     page.add(
         ft.Container(
             content=ft.Row(
-                controls=[home_button, left_column, notification],
+                controls=[home_button, left_column, right_column],
                 visible=True,
                 expand=True,
                 spacing=0,
+                alignment=ft.MainAxisAlignment.START,
+                vertical_alignment=ft.CrossAxisAlignment.START,
             ),
             expand=True,
             image_src="assets/images/home_page_bg.png",
