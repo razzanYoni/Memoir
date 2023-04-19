@@ -7,23 +7,7 @@ import lib.src.artikel.controller.artikel_controller as artikel_controller
 def main(page: ft.Page):
     page.title = "Memoir - Catatan Kegiatan"
 
-    page.window_width = 1440
-    page.window_height = 1024
-    page.window_resizable = False
-    page.window_maximizable = False
-
-    page.padding = ft.padding.all(0)
-    page.margin = ft.margin.all(0)
-    page.bgcolor = "#FFFFFF"
-
-    page.fonts = {
-        "Inter SemiBold": "fonts/Inter-SemiBold.otf",
-        "Inter Bold": "fonts/Inter-Bold.otf",
-        "Inter ExtraLight": "fonts/Inter-ExtraLight-BETA.otf",
-        "Inter Medium": "fonts/Inter-Medium.otf",
-        "Inter Thin": "fonts/Inter-Thin-BETA.otf",
-        "Inter Light": "fonts/Inter-Light-BETA.otf",
-    }
+    page.bgcolor = ft.colors.WHITE
 
     page.scroll = ft.ScrollMode.ADAPTIVE
 

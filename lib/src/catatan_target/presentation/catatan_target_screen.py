@@ -7,26 +7,10 @@ import lib.src.catatan_target.presentation.catatan_target_widget as catatan_targ
 def main(page: ft.Page):
     page.title = "Memoir - Catatan Target"
 
-    page.window_width = 1440
-    page.window_height = 800
-    page.window_resizable = False
-    page.window_maximizable = False
     page.bgcolor = ft.colors.WHITE
     page.scroll = ft.ScrollMode.ADAPTIVE
     page.window_focused = True
     page.theme_mode = ft.ThemeMode.LIGHT
-
-    page.padding = ft.padding.all(0)
-    page.margin = ft.margin.all(0)
-
-    page.fonts = {
-        "Inter SemiBold": "fonts/Inter-SemiBold.otf",
-        "Inter Bold": "fonts/Inter-Bold.otf",
-        "Inter ExtraLight": "fonts/Inter-ExtraLight-BETA.otf",
-        "Inter Medium": "fonts/Inter-Medium.otf",
-        "Inter Thin": "fonts/Inter-Thin-BETA.otf",
-        "Inter Light": "fonts/Inter-Light-BETA.otf",
-    }
 
     page.add(
         ft.Container(

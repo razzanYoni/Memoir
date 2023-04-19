@@ -7,10 +7,14 @@ import lib.src.catatan_jadwal.presentation.catatan_jadwal_screen as catatan_jadw
 import lib.src.catatan_target.presentation.catatan_target_screen as catatan_target_screen
 import lib.src.catatan_kegiatan.presentation.catatan_kegiatan_screen as catatan_kegiatan_screen
 
-import lib.src.catatan_jadwal.data.catatan_jadwal_repo as catatan_jadwal_repo
+import lib.src.catatan_jadwal.controller.catatan_jadwal_controller as catatan_jadwal_controller
 
 
 class FeatureButton(ft.Container):
+    def feature_btn_on_click(self, e):
+        self.page.controls.clear()
+        self.feature_screen.main(self.page)
+        
     def __init__(self, name, icon, feature_screen):
         super().__init__(
             content=ft.Row(
@@ -21,6 +25,7 @@ class FeatureButton(ft.Container):
                         height=73,
                         tooltip=name,
                         on_click=self.feature_btn_on_click,
+                        disabled=False,
                     ),
                     ft.Text(
                         value=name,
@@ -30,14 +35,9 @@ class FeatureButton(ft.Container):
                     )
                 ],
             ),
+            disabled=False,
         )
         self.feature_screen = feature_screen
-
-    def feature_btn_on_click(self, e):
-        self.page.controls.clear()
-        self.feature_screen.main(self.page)
-        self.page.update()
-
 
 class SideBar(ft.Container):
     def __init__(self, page:ft.Page, user: str):
@@ -54,22 +54,6 @@ class SideBar(ft.Container):
         self.user = user
 
         self.view = ft.Ref[ft.Container]()
-        super().__init__(
-            ref=self.view,
-            content=ft.Column(
-            controls=[
-                self.hamburger_btn,
-                ]),
-            bgcolor=ft.colors.TRANSPARENT,
-            width=615,
-            height=1024,
-            padding=ft.padding.only(left=52, top=71),
-            alignment=ft.alignment.top_left,
-            offset=ft.transform.Offset(0, 0),
-            animate_offset=ft.animation.Animation(300),
-        )
-        self.is_default = True
-
         self.default = ft.Container(
                     content=ft.Column(
                         controls=[
@@ -146,7 +130,22 @@ class SideBar(ft.Container):
                         ),
                         padding=ft.padding.only(top=70, left=30),
                     )
-        self.view.current.content.controls.append(self.default)
+        super().__init__(
+            ref=self.view,
+            content=ft.Column(
+            controls=[
+                self.hamburger_btn,
+                self.default,
+                ]),
+            bgcolor=ft.colors.TRANSPARENT,
+            width=615,
+            height=1024,
+            padding=ft.padding.only(left=52, top=71),
+            alignment=ft.alignment.top_left,
+            offset=ft.transform.Offset(0, 0),
+            animate_offset=ft.animation.Animation(300),
+        )
+        self.is_default = True
 
         self.page = page
         # self.default_mode()
@@ -154,34 +153,31 @@ class SideBar(ft.Container):
     def hamburger_btn_on_click(self, e):
         self.is_default = not self.is_default
         if self.is_default:
-            self.default_mode()
+            self.view.current.offset = ft.transform.Offset(-2, 0)
+            self.page.update()
+            sleep(0.31)
+
+            super.__setattr__(self, "bgcolor", ft.colors.TRANSPARENT)
+            self.hamburger_btn.image_src = "icons/hamburger_icon.png"
+            self.view.current.offset = ft.transform.Offset(0, 0)
+            self.view.current.content.controls.pop()
+            self.view.current.content.controls.append(self.default)
+            self.view.current.offset = ft.transform.Offset(0, 0)
+            self.update()
+            self.page.update()
         else:
-            self.featured_mode()
+            self.view.current.offset = ft.transform.Offset(-2, 0)
+            self.page.update()
+            sleep(0.31)
 
-    def default_mode(self):
-        self.view.current.offset = ft.transform.Offset(-2, 0)
-        self.page.update()
-        sleep(0.31)
-
-        super.__setattr__(self, "bgcolor", ft.colors.TRANSPARENT)
-        self.hamburger_btn.image_src = "icons/hamburger_icon.png"
-        self.view.current.offset = ft.transform.Offset(0, 0)
-        self.view.current.content.controls.pop()
-        self.view.current.content.controls.append(self.default)
-        self.page.update()
-
-    def featured_mode(self):
-        self.view.current.offset = ft.transform.Offset(-2, 0)
-        self.page.update()
-        sleep(0.31)
-
-        super.__setattr__(self, "bgcolor", "#07184f")
-        self.hamburger_btn.image_src = "icons/hamburger_alt_icon.png"
-        self.view.current.offset = ft.transform.Offset(0, 0)
-        self.view.current.content.controls.pop()
-        self.view.current.content.controls.append(self.featured)
-        self.page.update()
-
+            super.__setattr__(self, "bgcolor", "#07184f")
+            self.hamburger_btn.image_src = "icons/hamburger_alt_icon.png"
+            self.view.current.offset = ft.transform.Offset(0, 0)
+            self.view.current.content.controls.pop()
+            self.view.current.content.controls.append(self.featured)
+            self.view.current.offset = ft.transform.Offset(0, 0)
+            self.update()
+            self.page.update()
 
 class Time(ft.Container):
     def __init__(self):
@@ -212,57 +208,10 @@ class Reminders(ft.UserControl):
         )
 
     def build(self):
+        # _catatan_jadwal_control = catatan_jadwal_controller.CatatanJadwalController()
+        # _list_catatan_jadwal = _catatan_jadwal_control.get_list_catatan_jadwal()
         return ft.Column(
-            controls=[
-                ft.Text(
-                    value="Pengingat",
-                    size=60,
-                    color="#06184e",
-                    text_align=ft.TextAlign.CENTER,
-                ),
-
-                ft.Text(
-                    value="Pengingat",
-                    size=60,
-                    color="#06184e",
-                    text_align=ft.TextAlign.CENTER,
-                ),
-
-                ft.Text(
-                    value="Pengingat",
-                    size=60,
-                    color="#06184e",
-                    text_align=ft.TextAlign.CENTER,
-                ),
-
-                ft.Text(
-                    value="Pengingat",
-                    size=60,
-                    color="#06184e",
-                    text_align=ft.TextAlign.CENTER,
-                ),
-
-                ft.Text(
-                    value="Pengingat",
-                    size=60,
-                    color="#06184e",
-                    text_align=ft.TextAlign.CENTER,
-                ),
-
-                ft.Text(
-                    value="Pengingat",
-                    size=60,
-                    color="#06184e",
-                    text_align=ft.TextAlign.CENTER,
-                ),
-
-                ft.Text(
-                    value="Pengingat",
-                    size=60,
-                    color="#06184e",
-                    text_align=ft.TextAlign.CENTER,
-                ),
-            ],
+            controls=[],
             expand=True,
             scroll=ft.ScrollMode.HIDDEN,
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,

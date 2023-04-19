@@ -11,14 +11,6 @@ import lib.src.utilities.date_picker as date_picker
 def main(page: ft.Page):
     page.title = "Memoir - Tambah Catatan Target"
 
-    page.fonts = {
-        "Inter SemiBold": "fonts/Inter-SemiBold.otf",
-        "Inter Bold": "fonts/Inter-Bold.otf",
-        "Inter ExtraLight": "fonts/Inter-ExtraLight-BETA.otf",
-        "Inter Medium": "fonts/Inter-Medium.otf",
-        "Inter Thin": "fonts/Inter-Thin-BETA.otf",
-    }
-
     page.snack_bar = ft.SnackBar(
         content=ft.Text(
             value="Catatan target berhasil ditambahkan",

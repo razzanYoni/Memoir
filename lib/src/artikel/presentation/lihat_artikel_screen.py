@@ -11,17 +11,6 @@ def main(page: ft.Page, id_artikel: int):
 
     page.title = "Jelajahi Harimu"
 
-    def close_dialog(e):
-        page.dialog.open = False
-        page.update()
-
-    def back_to_catatan_kegiatan_screen(e):
-        # hapus catatan kegiatan
-        page.controls.clear()
-        artikel_screen.main(page)
-        page.update()
-
-
     def back_button(e):
         page.clean()
         artikel_screen.main(page)

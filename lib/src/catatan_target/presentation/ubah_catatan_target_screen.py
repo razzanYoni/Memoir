@@ -162,7 +162,6 @@ def main(page: ft.Page, id_catatan_target: int):
             page.snack_bar.open = True
             page.update()
             # print(e)
-            # print("exception from ubah")
 
         page.clean()
         catatan_target_screen.main(page)

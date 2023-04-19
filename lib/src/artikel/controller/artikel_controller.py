@@ -72,7 +72,5 @@ class ArtikelController:
     
 if __name__ == "__main__":
     controller = ArtikelController()
-    # test
-    # controller.Tambah(judulArtikel, isiArtikel, pengarangArtikel, tanggal, imgBlob1)
     print(len(controller.getListArtikel()))
     

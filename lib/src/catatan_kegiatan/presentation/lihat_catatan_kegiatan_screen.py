@@ -7,10 +7,6 @@ import lib.src.catatan_kegiatan.presentation.catatan_kegiatan_widget as catatan_
 import lib.src.catatan_kegiatan.controller.catatan_kegiatan_controller as catatan_kegiatan_controller
 
 
-# TODO : jangan lupa kalau misal ada foto yang diganti terus gaada di lokal, pasang foto default lagi
-# ? : kenapa ga pake blob ajah buat foto nya?
-
-
 def main(page: ft.Page, id_kegiatan: int):
     _catatan_kegiatan_controller = catatan_kegiatan_controller.CatatanKegiatanController()
     _catatan_kegiatan = _catatan_kegiatan_controller.getCatatanKegiatan(id_kegiatan)
@@ -89,7 +85,6 @@ def main(page: ft.Page, id_kegiatan: int):
         page.clean()
         catatan_kegiatan_screen.main(page)
         page.update()
-
 
     def hapus_catatan_kegiatan(e):
         page.dialog = delete_dialog
