@@ -46,7 +46,7 @@ class CatatanJadwal:
 
 
 if __name__ == '__main__':
-    catatan_jadwal = CatatanJadwal(1, '2020-01-01', '12:00:00', 'Makan', 'Makan', 'foto', 'Senang')
+    catatan_jadwal = CatatanJadwal(1, '2020-01-01', '12:00:00', 'Makan', 'foto', 'Senang')
     print(catatan_jadwal)
     catatan_jadwal.setDescJadwal('sibuk')
     print(catatan_jadwal)
