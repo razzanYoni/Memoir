@@ -7,7 +7,7 @@ import lib.src.catatan_target.presentation.catatan_target_screen as catatan_targ
 import lib.src.catatan_kegiatan.presentation.catatan_kegiatan_screen as catatan_kegiatan_screen
 import lib.src.catatan_jadwal.data.catatan_jadwal_model as catatan_jadwal_model
 import lib.src.catatan_jadwal.data.catatan_jadwal_repo as catatan_jadwal_repo
-import lib.src.catatan_jadwal.presentation.ubah_catatan_jadwal_screen as ubah_catatan_jadwal_screen
+import lib.src.catatan_jadwal.presentation.awal_ubah_catatan_jadwal_screen as awal_ubah_catatan_jadwal_screen
 import lib.src.catatan_jadwal.controller.catatan_jadwal_controller as catatan_jadwal_controller
 import lib.home_page.main_screen as main_screen
 
@@ -176,6 +176,12 @@ class Calendar(ft.Container):
 
 
 class CalendarButton(ft.Container):
+    def ubah_jadwal_button_on_click(self, e):
+        self.page.controls.clear()
+        id_catatan_jadwal = 0
+        awal_ubah_catatan_jadwal_screen.main(self.page, id_catatan_jadwal)
+        self.page.update()
+
     def __init__(self, page: ft.Page):
         super().__init__(
             image_src="assets/icons/jadwal_button1.png",
@@ -186,11 +192,6 @@ class CalendarButton(ft.Container):
         )
         self.page = page
 
-    def ubah_jadwal_button_on_click(self, e):
-        self.page.controls.clear()
-        id_catatan_jadwal = 0
-        ubah_catatan_jadwal_screen.main(self.page, id_catatan_jadwal)
-        self.page.update()
 
 
 class Agenda(ft.Container):
@@ -302,6 +303,13 @@ class Reminders(ft.UserControl):
         super().__init__()
         self._catatan_jadwal = catatan_jadwal
 
+    def ubah_jadwal_button_on_click(self, e):
+        self.page.controls.clear()
+        id_catatan_jadwal = 0
+        awal_ubah_catatan_jadwal_screen.main(self.page, id_catatan_jadwal)
+        self.page.update()
+
+
     def build(self):
         _catatan_jadwal_controller = catatan_jadwal_controller.CatatanJadwalController()
 
@@ -324,6 +332,7 @@ class Reminders(ft.UserControl):
                     border_radius=ft.border_radius.all(10),
                     padding=ft.padding.only(top=15, left=25, bottom=0, right=0),
                     margin=ft.margin.only(bottom=22, right=70, left=0),
+                    on_click=self.ubah_jadwal_button_on_click,
                 ),
 
                 ft.Container(
@@ -339,6 +348,7 @@ class Reminders(ft.UserControl):
                     border_radius=ft.border_radius.all(10),
                     padding=ft.padding.only(top=15, left=25, bottom=0, right=0),
                     margin=ft.margin.only(bottom=22, right=70, left=0),
+                    on_click=self.ubah_jadwal_button_on_click,
                 ),
                 ft.Container(
                     content=ft.Text(
@@ -353,21 +363,7 @@ class Reminders(ft.UserControl):
                     border_radius=ft.border_radius.all(10),
                     padding=ft.padding.only(top=15, left=25, bottom=0, right=0),
                     margin=ft.margin.only(bottom=22, right=70, left=0),
-                ),
-
-                ft.Container(
-                    content=ft.Text(
-                        value=retVal,
-                        size=19,
-                        color="#FFFFFF",
-                        text_align=ft.TextAlign.LEFT,
-                    ),
-                    width="800",
-                    height="85",
-                    bgcolor="#444980",
-                    border_radius=ft.border_radius.all(10),
-                    padding=ft.padding.only(top=15, left=25, bottom=0, right=0),
-                    margin=ft.margin.only(bottom=22, right=70, left=0),
+                    on_click=self.ubah_jadwal_button_on_click,
                 ),
 
                 ft.Container(
@@ -383,6 +379,23 @@ class Reminders(ft.UserControl):
                     border_radius=ft.border_radius.all(10),
                     padding=ft.padding.only(top=15, left=25, bottom=0, right=0),
                     margin=ft.margin.only(bottom=22, right=70, left=0),
+                    on_click=self.ubah_jadwal_button_on_click,
+                ),
+
+                ft.Container(
+                    content=ft.Text(
+                        value=retVal,
+                        size=19,
+                        color="#FFFFFF",
+                        text_align=ft.TextAlign.LEFT,
+                    ),
+                    width="800",
+                    height="85",
+                    bgcolor="#444980",
+                    border_radius=ft.border_radius.all(10),
+                    padding=ft.padding.only(top=15, left=25, bottom=0, right=0),
+                    margin=ft.margin.only(bottom=22, right=70, left=0),
+                    on_click=self.ubah_jadwal_button_on_click,
                 ),
             ],
             expand=True,
