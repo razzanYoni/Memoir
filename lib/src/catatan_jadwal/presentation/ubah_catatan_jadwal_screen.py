@@ -11,6 +11,24 @@ import lib.src.catatan_jadwal.presentation.catatan_jadwal_widget as catatan_jadw
 import lib.src.catatan_jadwal.data.catatan_jadwal_model as catatan_jadwal_model
 import lib.src.utilities.date_picker as date_picker
 import lib.src.utilities.time_picker as time_picker
+import lib.home_page.main_screen as main_screen
+
+class HomeButton2(ft.Container):
+    def __init__(self, page: ft.Page):
+        super().__init__(
+            image_src="assets/icons/home_button_putih.png",
+            on_click=self.home_button_on_click,
+            width=64,
+            height=64,
+            padding=ft.padding.only(top=0, left=0, bottom=0, right=0),
+            margin=ft.margin.only(bottom = 400, left=70, top=70),
+        )
+        self.page = page
+
+    def home_button_on_click(self, e):
+        self.page.controls.clear()
+        main_screen.main(self.page)
+        self.page.update()
 
 class CalendarButton2(ft.Container):
 
@@ -45,7 +63,37 @@ class Agenda2(ft.Container):
             margin=ft.margin.only(left=81, bottom=22, top=52),
         )
 
-
+class CalendarLeft2(ft.Container):
+    def __init__(self):
+        self.calendar = catatan_jadwal_widget.Calendar()
+        self.calendar_date = catatan_jadwal_widget.CalendarDate()
+        super().__init__(
+            content=ft.Container(
+                content=ft.Column(
+                    controls=[
+                        self.calendar,
+                        self.calendar_date
+                    ],
+                    opacity=1,
+                ),
+                gradient=ft.LinearGradient(
+                    begin=ft.alignment.top_right,
+                    end=ft.alignment.bottom_left,
+                    colors=[
+                        "#A7AECD",
+                        "#A7AECD"]
+                ),
+                border_radius=ft.border_radius.all(0),
+                bgcolor="A7AECD",
+                padding=ft.padding.only(top=50, left=0, bottom=30, right=0),
+            ),
+            width=895,
+            height=625,
+            padding=ft.padding.only(top=90, left=10, bottom=0, right=10),
+            alignment=ft.alignment.center,
+            bgcolor=ft.colors.TRANSPARENT
+)
+        
 class Reminders2(ft.UserControl):
     def __init__(self, catatan_jadwal: catatan_jadwal_model.CatatanJadwal):
         super().__init__()
@@ -201,6 +249,7 @@ def main(page: ft.Page, id_catatan_jadwal: int):
         action_color=ft.colors.WHITE,
         action="Tutup",
     )
+
     def back_to_catatan_jadwal_screen(e):
         page.dialog.open = False
         page.update()
@@ -407,11 +456,11 @@ def main(page: ft.Page, id_catatan_jadwal: int):
         catatan_jadwal_screen.main(page)
         page.update()
 
-    calendar = catatan_jadwal_widget.CalendarLeft()
+    calendar = CalendarLeft2()
     calendar_button = CalendarButton2(page)
     tes = catatan_jadwal_model.CatatanJadwal(1, 2, "aa", "ACARA XXX XXX XXX", "Agenda", "01:02:03")
     notification = Notification2(tes)
-    home_button = catatan_jadwal_widget.HomeButton(page)
+    home_button = HomeButton2(page)
 
     left_column = ft.Container(
         content=ft.Column(
@@ -484,7 +533,8 @@ def main(page: ft.Page, id_catatan_jadwal: int):
                             controls=[home_button, date, time], 
                             spacing=0,
                             alignment=ft.MainAxisAlignment.START,
-                            horizontal_alignment=ft.CrossAxisAlignment.START
+                            horizontal_alignment=ft.CrossAxisAlignment.START,
+
                         ), left_column, notification
             ],
             visible=True,
