@@ -5,7 +5,6 @@ import lib.src.artikel.presentation.artikel_screen as artikel_screen
 import lib.src.artikel.presentation.artikel_widget as artikel_widget
 import lib.src.artikel.controller.artikel_controller as artikel_controller
 
-
 def main(page: ft.Page, id_artikel: int):
     _artikel_controller = artikel_controller.ArtikelController()
     _artikel = _artikel_controller.getArtikel(id_artikel)
@@ -146,3 +145,4 @@ def main(page: ft.Page, id_artikel: int):
 
 if __name__ == "__main__":
     ft.app(target=main, assets_dir="../../../../assets")
+

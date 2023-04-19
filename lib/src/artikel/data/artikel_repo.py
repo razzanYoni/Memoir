@@ -12,3 +12,4 @@ class ArtikelRepo:
         result = cursor.fetchone()
         cursor.close()
         return result
+    

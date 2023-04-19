@@ -45,10 +45,4 @@ class Artikel:
         return f"""Artikel(id_artikel={self.__id_artikel}, judul={self.__judul}, isi={self.__isi}, pengarang={self.__pengarang}, tanggal={self.__tanggal}, foto={self.__foto})"""
     
 if __name__ == '__main__':
-    artikel = Artikel(1, 'Judulnya', 'Isinya', 'Pengarangnya', '2020-01-02', 'foto')
-    print(artikel)
-    artikel.setJudul('tidur')
-    print(artikel)
-
-
-
+    ...

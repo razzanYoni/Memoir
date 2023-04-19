@@ -5,7 +5,6 @@ import lib.src.artikel.controller.artikel_controller as artikel_controller
 import lib.src.artikel.presentation.lihat_artikel_screen as lihat_artikel_screen
 import lib.src.artikel.data.artikel_model as artikel_model
 from lib.src.utilities.util import image_to_blob, blob_to_base64
-# import lib.src.artikel.presentation.lihat_artikel_screen as lihat_artikel_screen
 
 class HomeButton(ft.Container):
     def __init__(self, page: ft.Page):
@@ -137,7 +136,6 @@ class Artikel(ft.UserControl):
             width=1100,
             height=150,
             on_click=self.artikel_on_click,
-            # bgcolor="#A7AECD",
             border_radius=15,
         )
 
