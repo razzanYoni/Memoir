@@ -369,7 +369,7 @@ def main(page: ft.Page, id_catatan_jadwal: int):
         page.update()
 
     def tambah_catatan_jadwal(e):
-        page.snack_bar.content.value = "Catatan Kegiatan berhasil ditambahkan"
+        page.snack_bar.content.value = "Catatan Jadwal berhasil ditambahkan"
         page.snack_bar.open = True
         page.update()
 
