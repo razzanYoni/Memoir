@@ -28,7 +28,7 @@ def main(page: ft.Page):
     page.theme = ft.Theme(font_family="Inter")
 
     calendar = catatan_jadwal_widget.CalendarLeft()
-    calendar_button = catatan_jadwal_widget.CalendarButton(page)
+    calendar_button = catatan_jadwal_widget.AddButton(page)
     tes = catatan_jadwal_model.CatatanJadwal(1, 2, "aa", "ACARA XXX XXX XXX", "Agenda", "01:02:03")
     notification = catatan_jadwal_widget.Notification(tes)
     home_button = catatan_jadwal_widget.HomeButton(page)

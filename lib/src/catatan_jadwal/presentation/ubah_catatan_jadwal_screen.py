@@ -57,7 +57,7 @@ class Reminders2(ft.UserControl):
         self.__nama_acara = self._catatan_jadwal.getNamaAcara()
         self.__desc_acara = self._catatan_jadwal.getDescAcara()
         # self.__desc_acara = self.getDescAcara() 
-        self.nama_acara = ft.TextField(
+        nama_acara = ft.TextField(
             border_width=0,
             width=800,
             height=88,
@@ -74,7 +74,7 @@ class Reminders2(ft.UserControl):
                 font_family="Inter Light",
             ),
         )
-        self.desc_acara = ft.TextField(
+        desc_acara = ft.TextField(
                 border_width=0,
                 max_lines=1,
                 multiline=False,
@@ -97,7 +97,7 @@ class Reminders2(ft.UserControl):
         return ft.Column(
             controls=[
                 ft.Container(
-                    content=nama_acara,
+                    content=self.nama_acara,
                     width="800",
                     height="85",
                     bgcolor="#444980",
@@ -106,7 +106,7 @@ class Reminders2(ft.UserControl):
                     margin=ft.margin.only(bottom=22, right=70, left=0),
                 ),
                 ft.Container(
-                    content = desc_acara,
+                    content = self.desc_acara,
                     width="800",
                     height="185",
                     bgcolor="#444980",
@@ -158,12 +158,12 @@ class Notification2(ft.Container):
         )
         
 
-# TODO : Ubah Cover
+# TODO : ini kalo yang tambah udh jadi tinggal bedanya field yang masukan valuenya udh dari database
 def main(page: ft.Page, id_catatan_jadwal: int):
     _catatan_jadwal_controller = catatan_jadwal_controller.CatatanJadwalController()
     catatan_jadwal = _catatan_jadwal_controller.getCatatanJadwal(id_catatan_jadwal)
     page.title = "Memoir - UbahCatatan Jadwal"
-
+ 
     page.window_width = 1440
     page.window_height = 800
     page.window_resizable = False
@@ -401,7 +401,7 @@ def main(page: ft.Page, id_catatan_jadwal: int):
             _catatan_jadwal = catatan_jadwal_model.CatatanJadwal(
                 id_jadwal=catatan_jadwal[0],
                 tanggal=catatan_jadwal[3],
-                durasi=catatan_jadwal[2]
+                durasi=catatan_jadwal[2],
                 nama_acara=nama_acara,
                 desc_acara=desc_acara.value,                
                 waktu=catatan_jadwal[5],
