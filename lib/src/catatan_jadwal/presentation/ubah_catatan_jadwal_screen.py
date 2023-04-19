@@ -491,33 +491,37 @@ def main(page: ft.Page, id_catatan_jadwal: int):
                 ft.Container(
                     image_src="assets/icons/cancel_button.png",
                     width=200,
-                    height=300,
+                    height=200,
                     on_click=batal_tambah_catatan_jadwal,
                 ),
 
                 ft.Container(
                     image_src="assets/icons/confirm_button.png",
                     width=200,
-                    height=300,
+                    height=200,
                     on_click=tambah_catatan_jadwal,
                 ),
             ],     
         ),
         margin=ft.margin.only(left=110),
     )
+    date = date_picker.DatePicker()
+    time = time_picker.TimePicker()
 
     right_column = ft.Container(
         content=ft.Column(
         controls=[
             notification,
+            date, 
+            time,
             dlm_right,
             # nama_acara,
             # desc_acara,
-        ]
+        ],
+        alignment=ft.MainAxisAlignment.START,
+        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
         )
     )
-    date = date_picker.DatePicker()
-    time = time_picker.TimePicker()
     page.add(
         
         ft.Container(
@@ -530,7 +534,7 @@ def main(page: ft.Page, id_catatan_jadwal: int):
             #           ],
             controls=[ 
                         ft.Column(
-                            controls=[home_button, date, time], 
+                            controls=[home_button], 
                             spacing=0,
                             alignment=ft.MainAxisAlignment.START,
                             horizontal_alignment=ft.CrossAxisAlignment.START,
@@ -542,7 +546,7 @@ def main(page: ft.Page, id_catatan_jadwal: int):
             spacing=0,
         ),
             expand=True,
-            image_src="assets/images/home_page_bg.png",
+            image_src="assets/images/ctt_jadwal_bg.png",
             image_fit=ft.ImageFit.COVER,
             image_repeat=ft.ImageRepeat.NO_REPEAT,
         )

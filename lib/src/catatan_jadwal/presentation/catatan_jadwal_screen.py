@@ -3,7 +3,7 @@ from datetime import datetime
 from time import sleep
 import lib.src.catatan_jadwal.data.catatan_jadwal_model as catatan_jadwal_model
 import lib.src.catatan_jadwal.presentation.catatan_jadwal_widget as catatan_jadwal_widget
-from catatan_jadwal_widget import CalendarButton
+from lib.src.catatan_jadwal.presentation.catatan_jadwal_widget import CalendarButton
 
 
 def main(page: ft.Page):
@@ -67,7 +67,7 @@ def main(page: ft.Page):
                 vertical_alignment=ft.CrossAxisAlignment.START,
             ),
             expand=True,
-            image_src="assets/images/home_page_bg.png",
+            image_src="assets/images/ctt_jadwal_bg.png",
             image_fit=ft.ImageFit.COVER,
             image_repeat=ft.ImageRepeat.NO_REPEAT,
         )

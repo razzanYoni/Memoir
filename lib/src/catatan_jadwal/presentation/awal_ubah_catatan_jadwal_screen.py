@@ -198,7 +198,7 @@ def main(page: ft.Page, id_catatan_jadwal: int):
                 spacing=0,
             ),
             expand=True,
-            image_src="assets/images/home_page_bg.png",
+            image_src="assets/images/ctt_jadwal_bg.png",
             image_fit=ft.ImageFit.COVER,
             image_repeat=ft.ImageRepeat.NO_REPEAT,
         )

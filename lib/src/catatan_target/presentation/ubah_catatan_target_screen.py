@@ -174,7 +174,7 @@ def main(page: ft.Page, id_catatan_target: int):
                     ft.Row(
                         controls=[
                             ft.Text(
-                                value="Ubah Catatan Kegiatan",
+                                value="Ubah Catatan Target",
                                 color="#043edb",
                                 size=45,
                                 font_family="Inter SemiBold",
