@@ -9,8 +9,11 @@ import lib.src.utilities.time_picker as time_picker
 from lib.src.utilities.util import image_to_blob
 import lib.src.catatan_jadwal.presentation.catatan_jadwal_widget as catatan_jadwal_widget
 import lib.src.catatan_jadwal.data.catatan_jadwal_model as catatan_jadwal_model
+import lib.src.utilities.date_picker as date_picker
+import lib.src.utilities.time_picker as time_picker
 
 class CalendarButton2(ft.Container):
+
     def ubah_jadwal_button_on_click(self, e):
         self.page.controls.clear()
         id_catatan_jadwal = 0
@@ -42,12 +45,11 @@ class Agenda2(ft.Container):
             margin=ft.margin.only(left=81, bottom=22, top=52),
         )
 
-class Reminders2(ft.UserControl):
 
+class Reminders2(ft.UserControl):
     def __init__(self, catatan_jadwal: catatan_jadwal_model.CatatanJadwal):
         super().__init__()
         self._catatan_jadwal = catatan_jadwal
-
 
     def build(self):
         _catatan_jadwal_controller = catatan_jadwal_controller.CatatanJadwalController()
@@ -55,7 +57,7 @@ class Reminders2(ft.UserControl):
         self.__nama_acara = self._catatan_jadwal.getNamaAcara()
         self.__desc_acara = self._catatan_jadwal.getDescAcara()
         # self.__desc_acara = self.getDescAcara() 
-        nama_acara = ft.TextField(
+        self.nama_acara = ft.TextField(
             border_width=0,
             width=800,
             height=88,
@@ -72,7 +74,7 @@ class Reminders2(ft.UserControl):
                 font_family="Inter Light",
             ),
         )
-        desc_acara = ft.TextField(
+        self.desc_acara = ft.TextField(
                 border_width=0,
                 max_lines=1,
                 multiline=False,
@@ -119,6 +121,7 @@ class Reminders2(ft.UserControl):
             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
             horizontal_alignment=ft.CrossAxisAlignment.START,
         )
+        return __nama_acara, __desc_acara
 
 class Notification2(ft.Container):
     def __init__(self, catatan_jadwal: catatan_jadwal_model.CatatanJadwal):
@@ -153,10 +156,12 @@ class Notification2(ft.Container):
             margin=ft.margin.only(left = 10),
             alignment=ft.alignment.center,
         )
+        
 
 # TODO : Ubah Cover
-def main(page: ft.Page):
-
+def main(page: ft.Page, id_catatan_jadwal: int):
+    _catatan_jadwal_controller = catatan_jadwal_controller.CatatanJadwalController()
+    catatan_jadwal = _catatan_jadwal_controller.getCatatanJadwal(id_catatan_jadwal)
     page.title = "Memoir - UbahCatatan Jadwal"
 
     page.window_width = 1440
@@ -385,6 +390,38 @@ def main(page: ft.Page):
         catatan_jadwal_screen.main(page)
         page.update()
 
+    def ubah_catatan_jadwal(e):
+        try:
+            if desc_acara.value == "" or desc_acara.value != "":
+                page.snack_bar.content.value = "Mohon isi semua kolom"
+                page.snack_bar.open = True
+                page.update()
+                return
+
+            _catatan_jadwal = catatan_jadwal_model.CatatanJadwal(
+                id_jadwal=catatan_jadwal[0],
+                tanggal=catatan_jadwal[3],
+                durasi=catatan_jadwal[2]
+                nama_acara=nama_acara,
+                desc_acara=desc_acara.value,                
+                waktu=catatan_jadwal[5],
+            )
+
+            _catatan_jadwal_controller.Memperbarui(_catatan_jadwal)
+            page.snack_bar.content.value = "Catatan Jadwal berhasil diubah"
+            page.snack_bar.open = True
+            page.update()
+
+        except Exception as e:
+            page.snack_bar.content.value = "Catatan Jadwal gagal diubah"
+            page.snack_bar.open = True
+            page.update()
+            print(e)
+
+        page.clean()
+        catatan_jadwal_screen.main(page)
+        page.update()
+
     calendar = catatan_jadwal_widget.CalendarLeft()
     calendar_button = CalendarButton2(page)
     tes = catatan_jadwal_model.CatatanJadwal(1, 2, "aa", "ACARA XXX XXX XXX", "Agenda", "01:02:03")
@@ -393,7 +430,14 @@ def main(page: ft.Page):
 
     left_column = ft.Container(
         content=ft.Column(
-            controls=[calendar, calendar_button],
+            controls=[calendar, 
+                ft.Container(
+                    image_src="icons/cancel_button.png",
+                    width=50,
+                    height=50,
+                    on_click=ubah_catatan_jadwal,
+                ),
+                calendar_button],
             visible=True,
             expand=True,
             spacing=0,
