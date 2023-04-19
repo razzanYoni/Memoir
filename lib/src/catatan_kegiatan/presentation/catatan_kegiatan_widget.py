@@ -15,24 +15,18 @@ import lib.src.catatan_kegiatan.presentation.lihat_catatan_kegiatan_screen as li
 matplotlib.use("svg")
 
 class HomeButton(ft.Container):
-    def __init__(self, page: ft.Page):
+    def home_button_on_click(self, e):
+        self.page.controls.clear()
+        main_screen.main(self.page)
+        self.page.update()
+
+    def __init__(self):
         super().__init__(
             image_src="icons/home_button.png",
             on_click=self.home_button_on_click,
             width=64,
             height=64,
         )
-        self.page = page
-
-    def home_button_on_click(self, e):
-        self.page.controls.clear()
-        main_screen.main(self.page)
-        self.page.update()
-
-# !: bisa pake ft.LineChart
-#  TODO
-# ?
-
 
 class GrafikPerasaan(ft.Container):
     @staticmethod
@@ -246,8 +240,11 @@ class DaftarCatatanKegiatan(ft.UserControl):
                 controls=[
                     CatatanKegiatan(i) for i in catatan_kegiatan_list
                 ],
+                scroll=ft.ScrollMode.ADAPTIVE,
                 spacing=15,
+                expand=True,
             ),
+            expand=True,
             width=1164,
             bgcolor=ft.colors.TRANSPARENT,
             alignment=ft.alignment.center,

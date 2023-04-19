@@ -7,19 +7,20 @@ import lib.src.artikel.data.artikel_model as artikel_model
 from lib.src.utilities.util import image_to_blob, blob_to_base64
 
 class HomeButton(ft.Container):
+    def home_button_on_click(self, e):
+        self.page.controls.clear()
+        main_screen.main(self.page)
+        self.page.update()
+
     def __init__(self, page: ft.Page):
         super().__init__(
-            image_src="icons/Home Button.png",
+            image_src="icons/home_button_dark.png",
             on_click=self.home_button_on_click,
             width=64,
             height=64,
         )
         self.page = page
 
-    def home_button_on_click(self, e):
-        self.page.controls.clear()
-        main_screen.main(self.page)
-        self.page.update()
 
 class SearchBar(ft.Container):
     def __init__(self, page: ft.Page):
@@ -309,7 +310,6 @@ class ArtikelCard(ft.UserControl):
 
     def artikel_on_click(self, e):
         self.page.controls.clear()
-        self.page.clean()
         lihat_artikel_screen.main(self.page, self._artikel.getID())
 
     def build(self):
@@ -388,7 +388,9 @@ class FeaturedArtikel(ft.UserControl):
                     ArtikelCard(i) for i in artikel_list
                 ],
                 spacing=15,
+                scroll=ft.ScrollMode.HIDDEN
             ),
+            expand=True,
             width=1164,
             bgcolor=ft.colors.TRANSPARENT,
             alignment=ft.alignment.center,

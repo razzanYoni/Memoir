@@ -7,6 +7,11 @@ import lib.src.catatan_target.presentation.tambah_catatan_target_screen as tamba
 import lib.src.catatan_target.presentation.lihat_catatan_target_screen as lihat_catatan_target_screen
 
 class HomeButton(ft.Container):
+    def home_button_on_click(self, e):
+        self.page.controls.clear()
+        main_screen.main(self.page)
+        self.page.update()
+        
     def __init__(self, page: ft.Page):
         super().__init__(
             image_src="icons/home_button_dark.png",
@@ -16,10 +21,6 @@ class HomeButton(ft.Container):
         )
         self.page = page
 
-    def home_button_on_click(self, e):
-        self.page.controls.clear()
-        main_screen.main(self.page)
-        self.page.update()
 
 class AddCatatanTargetButton(ft.Container):
     def add_catatan_target_button_on_click(self, e):
