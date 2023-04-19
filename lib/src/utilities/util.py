@@ -8,7 +8,6 @@ import base64
 
 def blob_to_base64(blob: str):
     return base64.b64encode(blob).decode("utf-8")
-
 def image_to_blob(imagefile: str):
     with open(imagefile, "rb") as f:
         blob = f.read()
