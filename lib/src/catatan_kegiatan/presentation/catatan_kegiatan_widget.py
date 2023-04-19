@@ -14,7 +14,6 @@ import lib.src.catatan_kegiatan.presentation.lihat_catatan_kegiatan_screen as li
 
 matplotlib.use("svg")
 
-
 class HomeButton(ft.Container):
     def __init__(self, page: ft.Page):
         super().__init__(
@@ -34,21 +33,27 @@ class HomeButton(ft.Container):
 #  TODO
 # ?
 
+
 class GrafikPerasaan(ft.Container):
     @staticmethod
     def getFrame():
         _catatan_kegiatan_controller = catatan_kegiatan_controller.CatatanKegiatanController()
         catatan_kegiatan_list = _catatan_kegiatan_controller.getListCatatanKegiatan()
-        jenis_perasaan_and_tanggal_list = [(i.getJenisPerasaan()) for i in catatan_kegiatan_list]
-        df = pd.DataFrame(jenis_perasaan_and_tanggal_list, columns=['jenis_perasaan'])
+        catatan_kegiatan_list.reverse()
+        catatan_kegiatan_list = catatan_kegiatan_list[:30]
+        jenis_perasaan_list = [(i.getJenisPerasaan()) for i in catatan_kegiatan_list]
+        if len(jenis_perasaan_list) == 1:
+            jenis_perasaan_list.append(jenis_perasaan_list[0])
+        df = pd.DataFrame(jenis_perasaan_list, columns=['jenis_perasaan'])
 
         fig, ax = plt.subplots()
         ax.set_facecolor('#07184f')
         ax.axes.get_yaxis().set_visible(False)
         ax.axes.get_xaxis().set_visible(False)
         ax.set_ylabel('Jenis Perasaan', color='#f5f5f5')
-        ax.set_ylim(0, 5)
-        ax.set_xlim(0, len(catatan_kegiatan_list)-1 if len(catatan_kegiatan_list) < 30 else 30)
+        ax.set_ylim(0, 5.5)
+        xmax = len(jenis_perasaan_list) - 1 if len(jenis_perasaan_list) > 1 and len(jenis_perasaan_list) < 30 else 30
+        ax.set_xlim(0, xmax)
         ax.plot(df['jenis_perasaan'], color='#f5f5f5')
         for line in ax.get_lines():
             line.set_linewidth(1)
@@ -89,7 +94,7 @@ class AddCatatanKegiatanButton(ft.Container):
     def add_catatan_kegiatan_button_on_click(self, e):
         self.page.controls.clear()
         tambah_catatan_kegiatan_screen.main(self.page)
-        self.page.update()
+        # self.page.update()
 
     def __init__(self, page: ft.Page):
         super().__init__(
@@ -100,27 +105,41 @@ class AddCatatanKegiatanButton(ft.Container):
         )
         self.page = page
 
+@staticmethod
+def getJenisPerasaanEmoji(jenis_perasaan: int):
+    if jenis_perasaan == 1:
+        return "😢"
+    elif jenis_perasaan == 2:
+        return "😕"
+    elif jenis_perasaan == 3:
+        return "😐"
+    elif jenis_perasaan == 4:
+        return "😊"
+    else:   # self._catatan_kegiatan.getJenisPerasaan() == 5:
+        return "😁"
+
+@staticmethod
+def convertTanggal(tanggal: str):
+    tanggal = tanggal.split("-")
+    bulan = {
+        "01": "Januari",
+        "02": "Februari",
+        "03": "Maret",
+        "04": "April",
+        "05": "Mei",
+        "06": "Juni",
+        "07": "Juli",
+        "08": "Agustus",
+        "09": "September",
+        "10": "Oktober",
+        "11": "November",
+        "12": "Desember",
+    }
+
+    return tanggal[2] + " " + bulan[tanggal[1]] + " " + tanggal[0]
+
 
 class CatatanKegiatan(ft.UserControl):
-    @staticmethod
-    def convertTanggal(tanggal: str):
-        tanggal = tanggal.split("-")
-        bulan = {
-            "01": "Januari",
-            "02": "Februari",
-            "03": "Maret",
-            "04": "April",
-            "05": "Mei",
-            "06": "Juni",
-            "07": "Juli",
-            "08": "Agustus",
-            "09": "September",
-            "10": "Oktober",
-            "11": "November",
-            "12": "Desember",
-        }
-
-        return tanggal[2] + " " + bulan[tanggal[1]] + " " + tanggal[0]
 
 
     def __init__(self, catatan_kegiatan: catatan_kegiatan_model.CatatanKegiatan):
@@ -133,16 +152,7 @@ class CatatanKegiatan(ft.UserControl):
         lihat_catatan_kegiatan_screen.main(self.page, self._catatan_kegiatan.getID())
 
     def build(self):
-        if self._catatan_kegiatan.getJenisPerasaan() == 1:
-            self.emoji = "😢"
-        elif self._catatan_kegiatan.getJenisPerasaan() == 2:
-            self.emoji = "😕"
-        elif self._catatan_kegiatan.getJenisPerasaan() == 3:
-            self.emoji = "😐"
-        elif self._catatan_kegiatan.getJenisPerasaan() == 4:
-            self.emoji = "😊"
-        else:   # self._catatan_kegiatan.getJenisPerasaan() == 5:
-            self.emoji = "😁"
+        self.emoji = getJenisPerasaanEmoji(self._catatan_kegiatan.getJenisPerasaan())
 
         return ft.Container(
             content=ft.Row(
@@ -169,7 +179,7 @@ class CatatanKegiatan(ft.UserControl):
                         content=ft.Column(
                             controls=[
                                 ft.Text(
-                                    value=self.convertTanggal(self._catatan_kegiatan.getTanggal()),
+                                    value=convertTanggal(self._catatan_kegiatan.getTanggal()),
                                     size=20,
                                     text_align=ft.TextAlign.LEFT,
                                     font_family="Inter ExtraLight",
@@ -186,7 +196,7 @@ class CatatanKegiatan(ft.UserControl):
                                 ),
 
                                 ft.Text(
-                                    value=self._catatan_kegiatan.getJam(),
+                                    value=self._catatan_kegiatan.getJam()[0:5],
                                     size=15,
                                     text_align=ft.TextAlign.LEFT,
                                     font_family="Inter ExtraLight",
@@ -242,3 +252,40 @@ class DaftarCatatanKegiatan(ft.UserControl):
             bgcolor=ft.colors.TRANSPARENT,
             alignment=ft.alignment.center,
         )
+
+
+class Feel(ft.Container):
+    def __init__(self, feel: int = 5):
+        self.feelDD = ft.Dropdown(
+            label="Feel",
+            label_style=ft.TextStyle(
+                color="#ffffff"
+            ),
+            options=[
+                ft.dropdown.Option(key="1", text="😢"),
+                ft.dropdown.Option(key="2", text="😕"),
+                ft.dropdown.Option(key="3", text="😐"),
+                ft.dropdown.Option(key="4", text="😊"),
+                ft.dropdown.Option(key="5", text="😁"),
+            ],
+            value=str(feel),
+            width=70,
+        )
+
+        super().__init__(
+            content=ft.Row(
+                controls=[
+                    self.feelDD
+                ],
+                spacing=5,
+                width=220,
+                height=60,
+                visible=True,
+            ),
+            visible=True,
+        )
+
+        print(self.get_feel())
+
+    def get_feel(self):
+        return int(self.feelDD.value)

@@ -1,28 +1,33 @@
 import sqlite3
+import os
 
 import lib.src.catatan_kegiatan.data.catatan_kegiatan_model as catatan_kegiatan_model
+import lib.src.utilities.util as util
 
 
 class CatatanKegiatanController:
     def __init__(self):
         self.__list_catatan_kegiatan = []
         # self.conn = sqlite3.connect('../../../../db/Memoir.db')
+        if not os.path.exists('./db/Memoir.db'):
+            f = open('./db/Memoir.db', 'w')
+            f.close()
         self.conn = sqlite3.connect('./db/Memoir.db')
         self.c = self.conn.cursor()
         self.c.execute("""CREATE TABLE IF NOT EXISTS "catatan_kegiatan" (
             "id_kegiatan" INTEGER,
             "tanggal" date,
             "jam" time,
-            "desc_kegiatan" string,
-            desc_syuk string,
-            foto string,
+            "desc_kegiatan" Text,
+            desc_syuk Text,
+            foto BLOB,
             jenis_perasaan integer,
             PRIMARY KEY("id_kegiatan" AUTOINCREMENT)
         )""")
         self.conn.commit()
         self.conn.close()
 
-    def Tambah(self, tanggal: str, jam: str, desc_kegiatan: str, desc_syuk: str, foto: str, jenis_perasaan: int):
+    def Tambah(self, tanggal: str, jam: str, desc_kegiatan: str, desc_syuk: str, foto: bytes, jenis_perasaan: int):
         # self.conn = sqlite3.connect('../../../../db/Memoir.db')
         self.conn = sqlite3.connect('./db/Memoir.db')
         self.c = self.conn.cursor()
@@ -70,7 +75,3 @@ class CatatanKegiatanController:
 
 if __name__ == "__main__":
     controller = CatatanKegiatanController()
-    controller.Tambah("2021-05-01", "12:00:00", "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM", "Makan", "Makan", 1)
-    controller.Memperbarui(catatan_kegiatan_model.CatatanKegiatan(1, "2021-05-01", "12:00:00", "Makan", "Makan", "Makan", 1))
-    controller.Tambah("2021-05-03", "13:00:00", "Makan", "Makan", "Makan", 1)
-    print(controller.getListCatatanKegiatan())

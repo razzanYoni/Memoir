@@ -1,10 +1,6 @@
 import flet as ft
-from time import sleep
 
-import lib.home_page.main_screen as main_screen
 import lib.src.catatan_kegiatan.presentation.catatan_kegiatan_widget as catatan_kegiatan_widget
-
-import lib.src.catatan_kegiatan.controller.catatan_kegiatan_controller as catatan_kegiatan_controller
 
 # alternatif button add catatan kegiatan di home screen pake floating action button
 
@@ -12,13 +8,16 @@ def main(page: ft.Page):
     page.title = "Memoir - Catatan Kegiatan"
 
     page.window_width = 1440
-    page.window_height = 1024
+    page.window_height = 800
     page.window_resizable = False
     page.window_maximizable = False
+    page.bgcolor = ft.colors.WHITE
+    page.scroll = ft.ScrollMode.ADAPTIVE
+    page.window_focused = True
+    page.theme_mode = ft.ThemeMode.LIGHT
 
     page.padding = ft.padding.all(0)
     page.margin = ft.margin.all(0)
-    page.bgcolor = "#FFFFFF"
 
     page.fonts = {
         "Inter SemiBold": "fonts/Inter-SemiBold.otf",
@@ -26,11 +25,12 @@ def main(page: ft.Page):
         "Inter ExtraLight": "fonts/Inter-ExtraLight-BETA.otf",
         "Inter Medium": "fonts/Inter-Medium.otf",
         "Inter Thin": "fonts/Inter-Thin-BETA.otf",
+        "Inter Light": "fonts/Inter-Light-BETA.otf",
     }
 
-    page.scroll = ft.ScrollMode.ADAPTIVE
 
     grafik_perasaan = catatan_kegiatan_widget.GrafikPerasaan(page)
+    
     page.add(
         ft.Container(
             content=ft.Row(
