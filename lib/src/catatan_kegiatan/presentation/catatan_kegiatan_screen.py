@@ -8,6 +8,7 @@ def main(page: ft.Page):
     page.title = "Memoir - Catatan Kegiatan"
     page.scroll = ft.ScrollMode.ADAPTIVE
     page.theme_mode = ft.ThemeMode.LIGHT
+    page.bgcolor = ft.colors.WHITE
 
     grafik_perasaan = catatan_kegiatan_widget.GrafikPerasaan(page)
     

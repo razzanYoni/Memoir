@@ -28,7 +28,7 @@ def main(page: ft.Page):
 
     page.theme = ft.Theme(font_family="Inter")
     
-    user = "Hana Fatiyah"
+    user = "Hana Fathiyah"
     side_bar = main_widget.SideBar(page=page, user=user)
     notification = main_widget.Notification()
     page.add(
