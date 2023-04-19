@@ -58,6 +58,18 @@ class ArtikelController:
         self.conn.close()
         return self.__list_artikel
     
+    def getArtikelFromSearch(self, searchQuery: str):
+        self.conn = sqlite3.connect('./db/Memoir.db')
+        self.c = self.conn.cursor()
+        self.c.execute(f"SELECT * FROM artikel WHERE judul LIKE '{searchQuery}%' ORDER BY judul")
+        list_artikel = self.c.fetchall()
+        search_artikel = []
+        for i in list_artikel:
+            # self.__list_catatan_target.append(catatan_target_model.CatatanTarget(i[0], i[1], i[2], i[3], i[4], i[5]))
+            search_artikel.append(artikel_model.Artikel(i[0], i[1], i[2], i[3], i[4], i[5]))
+        self.conn.close()
+        return search_artikel
+    
 if __name__ == "__main__":
     controller = ArtikelController()
-    print(controller.getListArtikel())
+    print(len(controller.getListArtikel()))
