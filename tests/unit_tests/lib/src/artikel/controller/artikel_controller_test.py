@@ -1,1 +1,0 @@
-import lib.src.artikel.controller.artikel_controller as artikel_controller

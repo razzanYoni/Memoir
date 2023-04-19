@@ -75,3 +75,5 @@ class CatatanKegiatanController:
 
 if __name__ == "__main__":
     controller = CatatanKegiatanController()
+    # controller.Hapus(6)
+    # print(len(controller.getListCatatanKegiatan()))
