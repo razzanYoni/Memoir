@@ -161,8 +161,8 @@ def main(page: ft.Page, id_catatan_target: int):
             page.snack_bar.content.value = "Catatan target gagal diubah"
             page.snack_bar.open = True
             page.update()
-            print(e)
-            print("exception from ubah")
+            # print(e)
+            # print("exception from ubah")
 
         page.clean()
         catatan_target_screen.main(page)
@@ -215,7 +215,7 @@ def main(page: ft.Page, id_catatan_target: int):
                         border_radius=15,
                         bgcolor="#043edb",
                         ref=container_ref,
-                        image_src="images/default_cover_ctt_target.png",
+                        image_src="images/default_cover_ctt_target.jpg",
                         width=1300,
                         height=700,
                         image_fit=ft.ImageFit.COVER,

@@ -155,7 +155,7 @@ def main(page: ft.Page):
             page.snack_bar.content.value = "Catatan target gagal ditambahkan"
             page.snack_bar.open = True
             page.update()
-            print(e)
+            # print(e)
 
         page.clean()
         catatan_target_screen.main(page)
@@ -206,7 +206,7 @@ def main(page: ft.Page):
                     # Content yang diisi oleh user
                     ft.Container(
                         ref=container_ref,
-                        image_src="images/default_cover_ctt_target.png",
+                        image_src="images/default_cover_ctt_target.jpg",
                         border_radius=15,
                         bgcolor="#043edb",
                         width=1300,

@@ -39,7 +39,7 @@ class CatatanTargetController:
             self.conn.commit()
             self.conn.close()
         except Exception as e:
-            print(e)
+            # print(e)
             found = False
         return found
 
@@ -58,8 +58,8 @@ class CatatanTargetController:
             self.conn.commit()
             self.conn.close()
         except Exception as e:
-            print(e)
-            print("exception from controller")
+            # print(e)
+            # print("exception from controller")
             found = False
         return found
 
@@ -153,4 +153,3 @@ class CatatanTargetController:
 
 if __name__ == "__main__":
     controller = CatatanTargetController()
-    controller.Tambah('2020-01-01', '03:03:03', "haaa", '2024-03-02')

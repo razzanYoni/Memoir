@@ -159,7 +159,7 @@ def main(page: ft.Page, id_target: int):
                                 ft.Container(
                                     border_radius=15,
                                     bgcolor="#043edb",
-                                    image_src="images/default_cover_ctt_target.png",
+                                    image_src="images/default_cover_ctt_target.jpg",
                                     width=1300,
                                     height=700,
                                     image_fit=ft.ImageFit.COVER,

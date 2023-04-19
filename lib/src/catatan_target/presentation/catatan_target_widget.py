@@ -193,9 +193,10 @@ class DaftarCatatanTarget(ft.UserControl):
                                                     )
                                                 ]
         except Exception as e:
-            print("-----")
-            print(e)
-            print("-----")
+            # print("-----")
+            # print(e)
+            # print("-----")
+            pass
 
         self.update()
         self.page.update()
@@ -228,9 +229,10 @@ class DaftarCatatanTarget(ft.UserControl):
                                                     )
                                                 ]
         except Exception as e:
-            print("-----")
-            print(e)
-            print("-----")
+            # print("-----")
+            # print(e)
+            # print("-----")
+            pass
 
         self.update()
         self.page.update()
@@ -263,9 +265,10 @@ class DaftarCatatanTarget(ft.UserControl):
                                                     )
                                                 ]
         except Exception as e:
-            print("-----")
-            print(e)
-            print("-----")
+            # print("-----")
+            # print(e)
+            # print("-----")
+            pass
 
         self.update()
         self.page.update()
@@ -298,9 +301,10 @@ class DaftarCatatanTarget(ft.UserControl):
                                                     )
                                                 ]
         except Exception as e:
-            print("-----")
-            print(e)
-            print("-----")
+            # print("-----")
+            # print(e)
+            # print("-----")
+            pass
 
         self.update()
         self.page.update()
@@ -343,9 +347,10 @@ class DaftarCatatanTarget(ft.UserControl):
                                                     )
                                                 ]
         except Exception as e:
-            print("-----")
-            print(e)
-            print("-----")
+            # print("-----")
+            # print(e)
+            # print("-----")
+            pass
 
         self.update()
         self.page.update()
