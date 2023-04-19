@@ -19,7 +19,7 @@ class CalendarButton2(ft.Container):
     def __init__(self, page: ft.Page):
         super().__init__(
             image_src="assets/icons/jadwal_button2.png",
-            on_click=self.ubah_jadwal_button_on_click,
+            on_click="",
             width=380,
             height=64,
             margin=17
@@ -43,6 +43,7 @@ class Agenda2(ft.Container):
         )
 
 class Reminders2(ft.UserControl):
+
     def __init__(self, catatan_jadwal: catatan_jadwal_model.CatatanJadwal):
         super().__init__()
         self._catatan_jadwal = catatan_jadwal
@@ -54,16 +55,47 @@ class Reminders2(ft.UserControl):
         self.__nama_acara = self._catatan_jadwal.getNamaAcara()
         self.__desc_acara = self._catatan_jadwal.getDescAcara()
         # self.__desc_acara = self.getDescAcara() 
+        nama_acara = ft.TextField(
+            border_width=0,
+            width=800,
+            height=88,
+            multiline=True,
+            text_style=ft.TextStyle(
+                color="#ffffff",
+                size=19,
+                font_family="Inter Light",
+            ),
+            hint_text="Judul Acara: \n      ACARA XXX XXXX XXX",
+            hint_style=ft.TextStyle(
+                color="#ffffff",
+                size=20,
+                font_family="Inter Light",
+            ),
+        )
+        desc_acara = ft.TextField(
+                border_width=0,
+                max_lines=1,
+                multiline=False,
+                width=800,
+                height=85,
+                text_align=ft.TextAlign.JUSTIFY,
+                text_style=ft.TextStyle(
+                    color="#ffffff",
+                    size=19,
+                    font_family="Inter SemiBold",
+                ),
+                hint_text="Deskripsi Acara: ",
+                hint_style=ft.TextStyle(
+                    color="#ffffff",
+                    size=18,
+                    font_family="Inter Light",
+                ),        
+        )        
         retVal = self._catatan_jadwal.getNamaAcara() + "\n     " + self._catatan_jadwal.getDescAcara()
         return ft.Column(
             controls=[
                 ft.Container(
-                    content=ft.Text(
-                        value="Judul Acara: ",
-                        size=19,
-                        color="#FFFFFF",
-                        text_align=ft.TextAlign.LEFT,
-                    ),
+                    content=nama_acara,
                     width="800",
                     height="85",
                     bgcolor="#444980",
@@ -72,12 +104,7 @@ class Reminders2(ft.UserControl):
                     margin=ft.margin.only(bottom=22, right=70, left=0),
                 ),
                 ft.Container(
-                    content=ft.Text(
-                        value="Deskripsi Acara: ",
-                        size=19,
-                        color="#FFFFFF",
-                        text_align=ft.TextAlign.LEFT,
-                    ),
+                    content = desc_acara,
                     width="800",
                     height="185",
                     bgcolor="#444980",
