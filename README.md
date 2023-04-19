@@ -60,11 +60,9 @@ All dependencies are specified in [this file](./requirements.txt).
 ## How to Use
 1. To install dependencies, run the following command in your terminal\
    `pip install requirements.txt`
-2. Create executable by running the following command\
-   `create exe command`
-3. Open app by running this command in your terminal\
-   `run command`
-4. Have fun using Memoir!
+2. Open app by running this command in your root terminal\
+   `python3 ./Memoir.py`
+3. Have fun using Memoir!
 
 
 ## Contributors
