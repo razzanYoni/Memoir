@@ -9,10 +9,10 @@ import lib.src.catatan_target.presentation.lihat_catatan_target_screen as lihat_
 class HomeButton(ft.Container):
     def __init__(self, page: ft.Page):
         super().__init__(
-            image_src="icons/home_button.png",
+            image_src="icons/home_button_dark.png",
             on_click=self.home_button_on_click,
             width=100,
-            height=68,
+            height=50,
         )
         self.page = page
 
@@ -130,6 +130,27 @@ class CatatanTarget(ft.UserControl):
             padding=ft.padding.symmetric(horizontal=25),
         )
 
+@staticmethod
+def buttonContent(text:str, selected: bool):
+    if selected:
+        return ft.Text(
+                    text,
+                    size=20,
+                    font_family="Inter Light",
+                    color="#A7AECD")
+    else:
+        return ft.Text(
+                    text,
+                    size=20,
+                    font_family="Inter Light",
+                    color="#D9D9D9")
+
+@staticmethod
+def buttonSide(selected: bool):
+    if selected:
+        return ft.BorderSide(3, "#A7AECD")
+    else:
+        return ft.BorderSide(3, "#D9D9D9")
 
 class DaftarCatatanTarget(ft.UserControl):
     # def __init__(self, page: ft.Page):
@@ -143,32 +164,101 @@ class DaftarCatatanTarget(ft.UserControl):
         self.selesai_catatan_target_list = self._catatan_target_controller.getSelesaiCatatanTarget()
         self.semua_catatan_target_list = self._catatan_target_controller.getSemuaCatatanTarget()
         self.colRef = ft.Ref[ft.Column]()
-    
+
     def belum_catatan_target_on_click(self, e):
+        self.belumButton.content=buttonContent("Belum", True)
+        self.berlangsungButton.content=buttonContent("Berlangsung", False)
+        self.selesaiButton.content=buttonContent("Selesai", False)
+        self.semuaButton.content=buttonContent("Semua", False)
+        self.belumButton.style.side=buttonSide(True)
+        self.berlangsungButton.style.side=buttonSide(False)
+        self.selesaiButton.style.side=buttonSide(False)
+        self.semuaButton.style.side=buttonSide(False)
+
         self.colRef.current.controls.clear()
         self.colRef.current.controls = [CatatanTarget(i) for i in self.belum_catatan_target_list]
+        if len(self.colRef.current.controls) == 0:
+            self.colRef.current.controls = [ft.Text(
+                value="Tidak ada catatan target berstatus \"Belum\"",
+                size=30,
+                text_align=ft.TextAlign.CENTER,
+            )]
         self.update()
         self.page.update()
 
     def berlangsung_catatan_target_on_click(self, e):
+        self.belumButton.content=buttonContent("Belum", False)
+        self.berlangsungButton.content=buttonContent("Berlangsung", True)
+        self.selesaiButton.content=buttonContent("Selesai", False)
+        self.semuaButton.content=buttonContent("Semua", False)
+        self.belumButton.style.side=buttonSide(False)
+        self.berlangsungButton.style.side=buttonSide(True)
+        self.selesaiButton.style.side=buttonSide(False)
+        self.semuaButton.style.side=buttonSide(False)
+
         self.colRef.current.controls.clear()
         self.colRef.current.controls = [CatatanTarget(i) for i in self.berlangsung_catatan_target_list]
+        if len(self.colRef.current.controls) == 0:
+            self.colRef.current.controls = [ft.Text(
+                value="Tidak ada catatan target berstatus \"Berlangsung\"",
+                size=30,
+                text_align=ft.TextAlign.CENTER,
+            )]
         self.update()
         self.page.update()
 
     def selesai_catatan_target_on_click(self, e):
+        self.belumButton.content=buttonContent("Belum", False)
+        self.berlangsungButton.content=buttonContent("Berlangsung", False)
+        self.selesaiButton.content=buttonContent("Selesai", True)
+        self.semuaButton.content=buttonContent("Semua", False)
+        self.belumButton.style.side=buttonSide(False)
+        self.berlangsungButton.style.side=buttonSide(False)
+        self.selesaiButton.style.side=buttonSide(True)
+        self.semuaButton.style.side=buttonSide(False)
+
         self.colRef.current.controls.clear()
         self.colRef.current.controls = [CatatanTarget(i) for i in self.selesai_catatan_target_list]
+        if len(self.colRef.current.controls) == 0:
+            self.colRef.current.controls = [ft.Text(
+                value="Tidak ada catatan target berstatus \"Selesai\"",
+                size=30,
+                text_align=ft.TextAlign.CENTER,
+            )]
         self.update()
         self.page.update()
 
     def semua_catatan_target_on_click(self, e):
+        self.belumButton.content=buttonContent("Belum", False)
+        self.berlangsungButton.content=buttonContent("Berlangsung", False)
+        self.selesaiButton.content=buttonContent("Selesai", False)
+        self.semuaButton.content=buttonContent("Semua", True)
+        self.belumButton.style.side=buttonSide(False)
+        self.berlangsungButton.style.side=buttonSide(False)
+        self.selesaiButton.style.side=buttonSide(False)
+        self.semuaButton.style.side=buttonSide(True)
+
         self.colRef.current.controls.clear()
         self.colRef.current.controls = [CatatanTarget(i) for i in self.semua_catatan_target_list]
+        if len(self.colRef.current.controls) == 0:
+            self.colRef.current.controls = [ft.Text(
+                value="Tidak ada catatan target",
+                size=30,
+                text_align=ft.TextAlign.CENTER,
+            )]
         self.update()
         self.page.update()
-    
+
     def search_on_change(self, e):
+        self.belumButton.content=buttonContent("Belum", False)
+        self.berlangsungButton.content=buttonContent("Berlangsung", False)
+        self.selesaiButton.content=buttonContent("Selesai", False)
+        self.semuaButton.content=buttonContent("Semua", True)
+        self.belumButton.style.side=buttonSide(False)
+        self.berlangsungButton.style.side=buttonSide(False)
+        self.selesaiButton.style.side=buttonSide(False)
+        self.semuaButton.style.side=buttonSide(True)
+
         self.colRef.current.controls.clear()
         self.colRef.current.controls = [CatatanTarget(i) for i in self._catatan_target_controller.getCatatanTargetFromSearch(e.control.value)]
         if len(self.colRef.current.controls) == 0:
@@ -181,6 +271,47 @@ class DaftarCatatanTarget(ft.UserControl):
         self.page.update()
 
     def build(self):
+        self.semuaButton = ft.TextButton(
+                                    content=buttonContent("Semua", True),
+                                    on_click=self.semua_catatan_target_on_click,
+                                    style=ft.ButtonStyle(
+                                        side=ft.BorderSide(3, "#A7AECD"),
+                                        bgcolor=ft.colors.TRANSPARENT,
+                                    ),
+                                    width=150,
+                                    height=50,
+                                )
+        self.belumButton = ft.TextButton(
+                                content=buttonContent("Belum", False),
+                                on_click=self.belum_catatan_target_on_click,
+                                style=ft.ButtonStyle(
+                                    side=ft.BorderSide(3, "#D9D9D9"),
+                                    bgcolor=ft.colors.TRANSPARENT,
+                                ),
+                                width=150,
+                                height=50,
+                            )
+        self.berlangsungButton = ft.TextButton(
+                                    content=buttonContent("Berlangsung", False),
+                                    on_click=self.berlangsung_catatan_target_on_click,
+                                    style=ft.ButtonStyle(
+                                        side=ft.BorderSide(3, "#D9D9D9"),
+                                        bgcolor=ft.colors.TRANSPARENT,
+                                    ),
+                                    width=150,
+                                    height=50,
+                                )
+
+        self.selesaiButton = ft.TextButton(
+                                    content=buttonContent("Selesai", False),
+                                    on_click=self.selesai_catatan_target_on_click,
+                                    style=ft.ButtonStyle(
+                                        side=ft.BorderSide(3, "#D9D9D9"),
+                                        bgcolor=ft.colors.TRANSPARENT,
+                                    ),
+                                    width=150,
+                                    height=50,
+                                )
         if len(self.catatan_target_list) == 0:
             # TODO : styling
             self.this_content = ft.Container(
@@ -198,89 +329,67 @@ class DaftarCatatanTarget(ft.UserControl):
             self.this_content = ft.Container(
             content=ft.Column(
                 ref=self.colRef,
-                # controls=[
-                #     # Tambah Catatan Target
-                #     CatatanTarget(i) for i in self.catatan_target_list
-                # ],
                 spacing=15,
             ),
             bgcolor=ft.colors.TRANSPARENT,
             alignment=ft.alignment.center,
         )
         self.colRef.current.controls = [CatatanTarget(i) for i in self.catatan_target_list]
-
+        print("halo")
         return ft.Container(
             alignment=ft.alignment.center,
             bgcolor=ft.colors.TRANSPARENT,
             content=ft.Column(
                 controls=[
                     ft.Container(
-                        # TODO styling Textfieldnya
-                        content=ft.TextField(
-                            hint_text="Cari catatan target",
-                            on_change=self.search_on_change,
-                            # hint_style=ft.TextStyle(
-                            # )
-                            # text_style=ft.TextStyle(
-                            # )
-                            # border=
+                        ft.Row(
+                            spacing=10,
+                            controls=[
+                                ft.Image(
+                                    src="/icons/search_icon.png",
+                                    height=20,
+                                    fit=ft.ImageFit.CONTAIN
+                                ),
+
+                                ft.TextField(
+                                    border="none",
+                                    expand=True,
+                                    hint_text="Cari Sesuatu",
+                                    on_change=self.search_on_change,
+                                    hint_style=ft.TextStyle(
+                                        color=ft.colors.WHITE,
+                                        font_family="Inter Light",
+                                        size=20
+                                    ),
+                                    text_style=ft.TextStyle(
+                                        color=ft.colors.WHITE,
+                                        font_family="Inter Light",
+                                        size=20
+                                    )
+                                )
+                            ]
                         ),
-                        bgcolor=ft.colors.YELLOW,
+                        bgcolor="#06184E",
                         height=50,
                         width=1164,
+                        border_radius=25,
+                        padding=ft.padding.symmetric(horizontal=20)
                     ),
                     ft.Row(
+                        spacing=20,
                         controls=[
                             ft.Divider(
                                 height=10,
                                 visible=False,
                             ),
-                            # TODO : Styling button nya
-                            ft.TextButton(
-                                text="SEMUA",
-                                on_click=self.semua_catatan_target_on_click,
-                                style=ft.ButtonStyle(
-                                    bgcolor=ft.colors.RED,
-                                    color=ft.colors.BLUE,
-                                ),
-                                width=250,
-                                height=50,
-                            ),
-                            ft.TextButton(
-                                text="BELUM",
-                                on_click=self.belum_catatan_target_on_click,
-                                style=ft.ButtonStyle(
-                                    bgcolor=ft.colors.RED,
-                                    color=ft.colors.BLUE,
-                                ),
-                                width=250,
-                                height=50,
-                            ),
-                            ft.TextButton(
-                                text="BERLANGSUNG",
-                                on_click=self.berlangsung_catatan_target_on_click,
-                                style=ft.ButtonStyle(
-                                    bgcolor=ft.colors.RED,
-                                    color=ft.colors.BLUE,
-                                ),
-                                width=250,
-                                height=50,
-                            ),
-                            ft.TextButton(
-                                text="SELESAI",
-                                on_click=self.selesai_catatan_target_on_click,
-                                style=ft.ButtonStyle(
-                                    bgcolor=ft.colors.RED,
-                                    color=ft.colors.BLUE,
-                                ),
-                                width=250,
-                                height=50,
-                            )
+                            self.semuaButton,
+                            self.belumButton,
+                            self.berlangsungButton,
+                            self.selesaiButton
                         ],
-                        spacing=52,
-                        # alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                     ),
                     self.this_content,
                 ]
             )
         )
+

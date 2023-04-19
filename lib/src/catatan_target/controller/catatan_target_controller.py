@@ -41,7 +41,7 @@ class CatatanTargetController:
             print(e)
             found = False
         return found
-        
+
     def Memperbarui(self, catatan_target: catatan_target_model.CatatanTarget):
         found = True
         try :
@@ -108,7 +108,7 @@ class CatatanTargetController:
         self.c = self.conn.cursor()
         self.c.execute("SELECT * FROM catatan_target WHERE status LIKE 'Belum' ORDER BY waktu_capai")
         list_catatan_target = self.c.fetchall()
-        belum_catatan_target = [] 
+        belum_catatan_target = []
         for i in list_catatan_target:
             belum_catatan_target.append(catatan_target_model.CatatanTarget(i[0], i[1], i[2], i[3], i[4], i[5]))
         self.conn.close()

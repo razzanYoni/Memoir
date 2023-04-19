@@ -117,9 +117,9 @@ def main(page: ft.Page, id_catatan_target: int):
         )
 
     waktu_capai = date_picker.DatePicker(
-            day=int(catatan_target[1][8:10]),
-            month=int(catatan_target[1][5:7]),
-            year=int(catatan_target[1][0:4]),
+            day=int(catatan_target[4][8:10]),
+            month=int(catatan_target[4][5:7]),
+            year=int(catatan_target[4][0:4]),
         )
 
     statusPick = status_picker.StatusPicker(status=catatan_target[5])
