@@ -9,10 +9,10 @@ class CatatanJadwalController:
     def __init__(self):
         self.__list_catatan_jadwal = []
         # self.conn = sqlite3.connect('../../../../db/Memoir.db')
-        if not os.path.exists('../Memoir.db'):
-            f = open('../Memoir.db', 'w')
+        if not os.path.exists('./db/Memoir.db'):
+            f = open('./db/Memoir.db', 'w')
             f.close()
-        self.conn = sqlite3.connect('../Memoir.db')
+        self.conn = sqlite3.connect('./db/Memoir.db')
         self.c = self.conn.cursor()
         self.c.execute("""CREATE TABLE IF NOT EXISTS "catatan_jadwal" (
             "id_jadwal" INTEGER,
@@ -26,17 +26,17 @@ class CatatanJadwalController:
         self.conn.commit()
         self.conn.close()
 
-    def Tambah(self, tanggal: str, durasi: str, desc_acara: str, nama_acara: str):
+    def Tambah(self, tanggal: str, waktu: str, nama_acara: str, desc_acara: str, durasi: int):
         # self.conn = sqlite3.connect('../../../../db/Memoir.db')
-        self.conn = sqlite3.connect('../Memoir.db')
+        self.conn = sqlite3.connect('./db/Memoir.db')
         self.c = self.conn.cursor()
-        self.c.execute("INSERT INTO catatan_jadwal (tanggal, durasi, desc_acara, nama_acara) VALUES (?, ?, ?, ?)", (tanggal, durasi, desc_acara, nama_acara))
+        self.c.execute("INSERT INTO catatan_jadwal (tanggal, waktu, nama_acara, desc_acara, durasi) VALUES (?, ?, ?, ?, ?)", (tanggal, waktu, nama_acara, desc_acara, durasi))
         self.conn.commit()
         self.conn.close()
 
     def Memperbarui(self, catatan_jadwal: catatan_jadwal_model.CatatanJadwal):
         # self.conn = sqlite3.connect('../../../../db/Memoir.db')
-        self.conn = sqlite3.connect('../Memoir.db')
+        self.conn = sqlite3.connect('./db/Memoir.db')
         self.c = self.conn.cursor()
         self.c.execute("UPDATE catatan_jadwal SET desc_acara = ?, WHERE id_jadwal = ?", (catatan_jadwal.getDesc(), catatan_jadwal.getID()))
         self.conn.commit()
@@ -44,7 +44,7 @@ class CatatanJadwalController:
 
     def Hapus(self, id_jadwal: int):
         # self.conn = sqlite3.connect('../../../../db/Memoir.db')
-        self.conn = sqlite3.connect('../Memoir.db')
+        self.conn = sqlite3.connect('./db/Memoir.db')
         self.c = self.conn.cursor()
         self.c.execute("DELETE FROM catatan_jadwal WHERE id_jadwal = ?", (id_jadwal,))
         self.conn.commit()
@@ -52,7 +52,7 @@ class CatatanJadwalController:
 
     def getCatatanJadwal(self, id_jadwal: int):
         # self.conn = sqlite3.connect('../../../../db/Memoir.db')
-        self.conn = sqlite3.connect('../Memoir.db')
+        self.conn = sqlite3.connect('./db/Memoir.db')
         self.c = self.conn.cursor()
         self.c.execute("SELECT * FROM catatan_jadwal WHERE id_jadwal = ?", (id_jadwal,))
         catatan_jadwal = self.c.fetchone()
@@ -61,16 +61,28 @@ class CatatanJadwalController:
 
     def getListCatatanJadwal(self):
         # self.conn = sqlite3.connect('../../../../db/Memoir.db')
-        self.conn = sqlite3.connect('../Memoir.db')
+        self.conn = sqlite3.connect('./db/Memoir.db')
         self.c = self.conn.cursor()
         self.c.execute("SELECT * FROM catatan_jadwal ORDER BY tanggal DESC, durasi DESC")
         list_catatan_jadwal = self.c.fetchall()
         self.__list_catatan_jadwal.clear()
         for i in list_catatan_jadwal:
-            self.__list_catatan_jadwal.append(catatan_jadwal_model.CatatanJadwal(i[0], i[1], i[2], i[3], i[4], i[5], i[6]))
+            self.__list_catatan_jadwal.append(catatan_jadwal_model.CatatanJadwal(i[0], i[1], i[2], i[3], i[4], i[5]))
         self.conn.close()
         return self.__list_catatan_jadwal
 
 
+# if __name__ == "__main__":
+#     controller = CatatanJadwalController()
+
 if __name__ == "__main__":
     controller = CatatanJadwalController()
+    #(tanggal, waktu, nama_acara, desc_acara, durasi)
+    controller.Tambah(2, 3, "aa", "bb", "nama acara", "01:02:03")
+    controller.Tambah(3, 4, "aa", "bb", "nama acara", "01:02:03")
+    controller.Tambah(4, 5, "aa", "bb", "nama acara", "01:02:03")
+    controller.Tambah(5, 6, "aa", "bb", "nama acara", "01:02:03")
+    controller.Tambah(6, 7, "aa", "bb", "nama acara", "01:02:03")
+    # controller.Memperbarui(catatan_jadwal_model.CatatanJadwal(1, "2021-05-01", "12:00:00", "Makan", "Makan", "Makan", 1))
+    # controller.Tambah("2021-05-03", "13:00:00", "Makan", "Makan", "Makan", 1)
+    print(controller.getListCatatanJadwal())
