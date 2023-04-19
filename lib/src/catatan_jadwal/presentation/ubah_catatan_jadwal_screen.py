@@ -97,7 +97,7 @@ class Reminders2(ft.UserControl):
         return ft.Column(
             controls=[
                 ft.Container(
-                    content=self.nama_acara,
+                    content=nama_acara,
                     width="800",
                     height="85",
                     bgcolor="#444980",
@@ -106,7 +106,7 @@ class Reminders2(ft.UserControl):
                     margin=ft.margin.only(bottom=22, right=70, left=0),
                 ),
                 ft.Container(
-                    content = self.desc_acara,
+                    content = desc_acara,
                     width="800",
                     height="185",
                     bgcolor="#444980",
@@ -158,12 +158,12 @@ class Notification2(ft.Container):
         )
         
 
-# TODO : ini kalo yang tambah udh jadi tinggal bedanya field yang masukan valuenya udh dari database
+# TODO : Ubah Cover
 def main(page: ft.Page, id_catatan_jadwal: int):
     _catatan_jadwal_controller = catatan_jadwal_controller.CatatanJadwalController()
     catatan_jadwal = _catatan_jadwal_controller.getCatatanJadwal(id_catatan_jadwal)
     page.title = "Memoir - UbahCatatan Jadwal"
- 
+
     page.window_width = 1440
     page.window_height = 800
     page.window_resizable = False
@@ -368,6 +368,20 @@ def main(page: ft.Page, id_catatan_jadwal: int):
         page.dialog.open = True
         page.update()
 
+    def tambah_catatan_jadwal(e):
+        page.snack_bar.content.value = "Catatan Kegiatan berhasil ditambahkan"
+        page.snack_bar.open = True
+        page.update()
+
+        page.clean()
+        catatan_jadwal_screen.main(page)
+        page.update()
+
+    def batal_tambah_catatan_jadwal(e):
+        page.dialog = cancel_dialog
+        page.dialog.open = True
+        page.update()
+
     def ubah_catatan_jadwal(e):
         try:
             if desc_acara.value == "" or nama_acara.value == "" or nama_acara.value != "" or desc_acara.value != "":
@@ -390,38 +404,6 @@ def main(page: ft.Page, id_catatan_jadwal: int):
         catatan_jadwal_screen.main(page)
         page.update()
 
-    def ubah_catatan_jadwal(e):
-        try:
-            if desc_acara.value == "" or desc_acara.value != "":
-                page.snack_bar.content.value = "Mohon isi semua kolom"
-                page.snack_bar.open = True
-                page.update()
-                return
-
-            _catatan_jadwal = catatan_jadwal_model.CatatanJadwal(
-                id_jadwal=catatan_jadwal[0],
-                tanggal=catatan_jadwal[3],
-                durasi=catatan_jadwal[2],
-                nama_acara=nama_acara,
-                desc_acara=desc_acara.value,                
-                waktu=catatan_jadwal[5],
-            )
-
-            _catatan_jadwal_controller.Memperbarui(_catatan_jadwal)
-            page.snack_bar.content.value = "Catatan Jadwal berhasil diubah"
-            page.snack_bar.open = True
-            page.update()
-
-        except Exception as e:
-            page.snack_bar.content.value = "Catatan Jadwal gagal diubah"
-            page.snack_bar.open = True
-            page.update()
-            print(e)
-
-        page.clean()
-        catatan_jadwal_screen.main(page)
-        page.update()
-
     calendar = catatan_jadwal_widget.CalendarLeft()
     calendar_button = CalendarButton2(page)
     tes = catatan_jadwal_model.CatatanJadwal(1, 2, "aa", "ACARA XXX XXX XXX", "Agenda", "01:02:03")
@@ -430,14 +412,17 @@ def main(page: ft.Page, id_catatan_jadwal: int):
 
     left_column = ft.Container(
         content=ft.Column(
-            controls=[calendar, 
+            controls=[
+                calendar, 
                 ft.Container(
-                    image_src="icons/cancel_button.png",
-                    width=50,
-                    height=50,
-                    on_click=ubah_catatan_jadwal,
-                ),
-                calendar_button],
+                    image_src="assets/icons/jadwal_button2.png",
+                    width=380,
+                    height=64,
+                    margin=17,
+                    on_click=hapus_catatan_jadwal,
+                ),    
+                
+            ],
             visible=True,
             expand=True,
             spacing=0,
@@ -448,10 +433,40 @@ def main(page: ft.Page, id_catatan_jadwal: int):
         padding=ft.padding.only(top=30, left=0, bottom=0, right=0),
     )
 
+    dlm_right = ft.Container(
+        content= ft.Row(
+            controls=[
+                ft.Container(
+                    image_src="assets/icons/cancel_button.png",
+                    width=200,
+                    height=300,
+                    on_click=batal_tambah_catatan_jadwal,
+                ),
+
+                ft.Container(
+                    image_src="assets/icons/confirm_button.png",
+                    width=200,
+                    height=300,
+                    on_click=tambah_catatan_jadwal,
+                ),
+            ],     
+        ),
+        margin=ft.margin.only(left=110),
+    )
+
+    right_column = ft.Container(
+        content=ft.Column(
+        controls=[
+            notification,
+            dlm_right
+        ]
+        )
+    )
+
     page.add(
         ft.Container(
             content=ft.Row(
-            controls=[home_button, left_column, notification],
+            controls=[home_button, left_column, right_column],
             visible=True,
             expand=True,
             spacing=0,
