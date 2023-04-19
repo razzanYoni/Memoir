@@ -206,96 +206,9 @@ class Agenda(ft.Container):
             opacity=1,
             alignment=ft.alignment.top_left,
             bgcolor=ft.colors.TRANSPARENT,
-            margin=ft.margin.only(left=81, bottom=22, top=52),
+            margin=ft.margin.only(left=250, bottom=22, top=52),
         )
-    
 
-
-
-# TODO: Reminder Control, wait for the backend
-# class Reminders(ft.UserControl):
-#     def __init__(self):
-#         super().__init__(
-#             expand=True,
-#         )
-
-#     def build(self):
-#         return ft.Column(
-#             controls=[
-#                 ft.Container(
-#                     content=ft.Text(
-#                         value="  Agenda\n  ACARA XXX XXX XXX\n   ",
-#                         size=19,
-#                         color="#FFFFFF",
-#                         text_align=ft.TextAlign.LEFT,
-#                     ),
-#                     width="800",
-#                     bgcolor="#444980",
-#                     border_radius=ft.border_radius.all(10),
-#                     padding=ft.padding.only(top=15, left=0, bottom=0, right=0),
-#                     margin=ft.margin.only(bottom=22, right=70, left=0),
-#                 ),
-
-#                 ft.Container(
-#                     content=ft.Text(
-#                         value="  Agenda\n  ACARA XXX XXX XXX\n   ",
-#                         size=19,
-#                         color="#FFFFFF",
-#                         text_align=ft.TextAlign.LEFT,
-#                     ),
-#                     width="800",
-#                     bgcolor="#444980",
-#                     border_radius=ft.border_radius.all(10),
-#                     padding=ft.padding.only(top=15, left=0, bottom=0, right=0),
-#                     margin=ft.margin.only(bottom=22, right=70, left=0),
-#                 ),
-#                 ft.Container(
-#                     content=ft.Text(
-#                         value="  Agenda\n  ACARA XXX XXX XXX\n   ",
-#                         size=19,
-#                         color="#FFFFFF",
-#                         text_align=ft.TextAlign.LEFT,
-#                     ),
-#                     width="800",
-#                     bgcolor="#444980",
-#                     border_radius=ft.border_radius.all(10),
-#                     padding=ft.padding.only(top=15, left=0, bottom=0, right=0),
-#                     margin=ft.margin.only(bottom=22, right=70, left=0),
-#                 ),
-
-#                 ft.Container(
-#                     content=ft.Text(
-#                         value="  Agenda\n  ACARA XXX XXX XXX\n   ",
-#                         size=19,
-#                         color="#FFFFFF",
-#                         text_align=ft.TextAlign.LEFT,
-#                     ),
-#                     width="800",
-#                     bgcolor="#444980",
-#                     border_radius=ft.border_radius.all(10),
-#                     padding=ft.padding.only(top=15, left=0, bottom=0, right=0),
-#                     margin=ft.margin.only(bottom=22, right=70, left=0),
-#                 ),
-
-#                 ft.Container(
-#                     content=ft.Text(
-#                         value="  Agenda\n  ACARA XXX XXX XXX\n   ",
-#                         size=19,
-#                         color="#FFFFFF",
-#                         text_align=ft.TextAlign.LEFT,
-#                     ),
-#                     width="800",
-#                     bgcolor="#444980",
-#                     border_radius=ft.border_radius.all(10),
-#                     padding=ft.padding.only(top=15, left=0, bottom=0, right=0),
-#                     margin=ft.margin.only(bottom=22, right=70, left=0),
-#                 ),
-#             ],
-#             expand=True,
-#             scroll=ft.ScrollMode.HIDDEN,
-#             alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-#             horizontal_alignment=ft.CrossAxisAlignment.START,
-#         )
 
 class Reminders(ft.UserControl):
     def __init__(self, catatan_jadwal: catatan_jadwal_model.CatatanJadwal):
@@ -437,69 +350,54 @@ class Notification(ft.Container):
             alignment=ft.alignment.center,
         )
 
-
-# class Notification(ft.Container):
-#     def __init__(self):
-#         self.agenda = Agenda()
-#         self.reminders = Reminders()
-#         super().__init__(
-#             content=ft.Container(
-#                 content=ft.Column(
-#                     controls=[
-#                         self.agenda,
-#                         ft.Divider(
-#                             height=1,
-#                             color=ft.colors.TRANSPARENT,
-#                             visible=False
-#                         ),
-#                         self.reminders
-#                     ],
-#                     opacity=1,
-#                 ),
-#                 gradient=ft.LinearGradient(
-#                     begin=ft.alignment.top_right,
-#                     end=ft.alignment.bottom_left,
-#                     colors=[
-#                         "#e9ebf9",
-#                         "#f1f1f1"]
-#                 ),
-#                 border_radius=ft.border_radius.all(0),
-#                 bgcolor=ft.colors.TRANSPARENT
-#             ),
-#             width=555,
-#             padding=ft.padding.only(top=0, left=155, bottom=0, right=0),
-#             margin=ft.margin.only(left = 10),
-#             alignment=ft.alignment.center,
-#         )
-
-# jadwal
 class CatatanJadwal(ft.UserControl):
-    def __init__(self, id_jadwal, tanggal, durasi, desc_acara, nama_acara, waktu):
-        self.__id_jadwal = id_jadwal
-        self.__tanggal = tanggal
-        self.__waktu = waktu
-        self.__nama_acara = nama_acara
-        self.__desc_acara = desc_acara
-        self.__durasi = durasi
+    def __init__(self, catatan_jadwal: catatan_jadwal_model.CatatanJadwal):
+        super().__init__()
+        self._catatan_jadwal = catatan_jadwal
 
     def catatan_jadwal_on_click(self, e):
         self.page.controls.clear()
-        # self.page.clean()
-        catatan_jadwal_screen.main(self.page, self._catatan_jadwal.getID())
+        ubah_catatan_jadwal_screen.main(self.page, self._catatan_jadwal.getID())
 
-    def get_nama_acara(self):
-        return self.__nama_acara
+    def build(self):
+        return ft.Container(
+                    content=ft.Column(
+                        controls=[
+                            ft.Text(
+                                    value=self._catatan_jadwal.getNamaAcara(),
+                                    size=19,
+                                    color="#FFFFFF",
+                                    text_align=ft.TextAlign.LEFT,
+                                    overflow=ft.TextOverflow.VISIBLE,
+                                    ),
+                            
+                            ft.Text(
+                                    value=self._catatan_jadwal.getDescAcara(),
+                                    size=19,
+                                    color="#FFFFFF",
+                                    text_align=ft.TextAlign.LEFT,
+                                    overflow=ft.TextOverflow.VISIBLE,
+                                    ),
+                        ],
+                        spacing=0
+                    ),
+                    width=800,
+                    height=85,
+                    bgcolor="#444980",
+                    border_radius=ft.border_radius.all(10),
+                    padding=ft.padding.only(top=15, left=25, bottom=0, right=0),
+                    margin=ft.margin.only(bottom=22, right=70, left=0),
+                    on_click=self.catatan_jadwal_on_click,
+                )
 
 
 class DaftarCatatanJadwal(ft.UserControl):
-    def __init__(self, page: ft.Page):
+    def __init__(self):
         super().__init__()
-        self.page = page
 
     def build(self):
         _catatan_jadwal_controller = catatan_jadwal_controller.CatatanJadwalController()
         catatan_jadwal_list = _catatan_jadwal_controller.getListCatatanJadwal()
-
         if len(catatan_jadwal_list) == 0:
             return ft.Container(
                 content=ft.Text(
@@ -510,16 +408,24 @@ class DaftarCatatanJadwal(ft.UserControl):
                 alignment=ft.alignment.center,
                 expand=True,
                 height=300,
-                width=1164,
+                width=555,
             )
-        return ft.Container(
-            content=ft.Column(
-                controls=[
-                    CatatanJadwal(i) for i in catatan_jadwal_list
-                ],
-                spacing=15,
-            ),
-            width=1164,
-            bgcolor=ft.colors.TRANSPARENT,
-            alignment=ft.alignment.center,
-        )
+        else :
+            result = ft.Container(
+                content=ft.Column(
+                    controls=[
+                        # TODO : AGENDA
+                        # CatatanJadwal(i) for i in catatan_jadwal_list
+                    ],
+                    scroll=ft.ScrollMode.ADAPTIVE,
+                    spacing=15,
+                ),
+                width=555,
+                padding=ft.padding.only(top=0, left=155, bottom=0, right=0),
+                margin=ft.margin.only(left = 10,),
+                bgcolor=ft.colors.TRANSPARENT,
+                alignment=ft.alignment.center,
+            )
+            for i in catatan_jadwal_list:
+                result.content.controls.append(CatatanJadwal(i))
+            return result
