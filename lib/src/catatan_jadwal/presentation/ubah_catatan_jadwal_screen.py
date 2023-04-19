@@ -535,7 +535,7 @@ def main(page: ft.Page, id_catatan_jadwal: int):
                             alignment=ft.MainAxisAlignment.START,
                             horizontal_alignment=ft.CrossAxisAlignment.START,
 
-                        ), left_column, notification
+                        ), left_column, right_column
             ],
             visible=True,
             expand=True,
