@@ -1,7 +1,7 @@
 import flet as ft
 from datetime import datetime
 from time import sleep
-
+import lib.src.catatan_jadwal.data.catatan_jadwal_model as catatan_jadwal_model
 import lib.src.catatan_jadwal.presentation.catatan_jadwal_widget as catatan_jadwal_widget
 from catatan_jadwal_widget import CalendarButton
 
@@ -28,8 +28,10 @@ def main(page: ft.Page):
     page.theme = ft.Theme(font_family="Inter")
 
     calendar = catatan_jadwal_widget.CalendarLeft()
-    calendar_button = catatan_jadwal_widget.CalendarButton()
-    notification = catatan_jadwal_widget.Notification()
+    calendar_button = catatan_jadwal_widget.CalendarButton(page)
+    tes = catatan_jadwal_model.CatatanJadwal(1, 2, "aa", "ACARA XXX XXX XXX", "Agenda", "01:02:03")
+    notification = catatan_jadwal_widget.Notification(tes)
+    home_button = catatan_jadwal_widget.HomeButton(page)
 
     left_column = ft.Container(
         content=ft.Column(
@@ -47,7 +49,7 @@ def main(page: ft.Page):
     page.add(
         ft.Container(
             content=ft.Row(
-                controls=[left_column, notification],
+                controls=[home_button, left_column, notification],
                 visible=True,
                 expand=True,
                 spacing=0,
