@@ -40,10 +40,26 @@ class FeatureButton(ft.Container):
 
 
 class SideBar(ft.Container):
-    def __init__(self, page: ft.Page, user: str):
-        self.view = ft.Ref[ft.Column]()
+    def __init__(self, page:ft.Page, user: str):
+        self.hamburger_btn = ft.Container(
+            image_src="icons/hamburger_icon.png",
+            padding=10,
+            width=62,
+            height=55,
+            on_click=self.hamburger_btn_on_click,
+        )
+        self.times_of_day = "Pagi" if datetime.now().hour < 12 else (
+            "Siang" if datetime.now().hour < 18 else "Malam")
+
+        self.user = user
+
+        self.view = ft.Ref[ft.Container]()
         super().__init__(
             ref=self.view,
+            content=ft.Column(
+            controls=[
+                self.hamburger_btn,
+                ]),
             bgcolor=ft.colors.TRANSPARENT,
             width=615,
             height=1024,
@@ -54,40 +70,7 @@ class SideBar(ft.Container):
         )
         self.is_default = True
 
-        self.page = page
-        self.user = user
-
-        self.times_of_day = "Pagi" if datetime.now().hour < 12 else (
-            "Siang" if datetime.now().hour < 18 else "Malam")
-
-        self.hamburger_btn = ft.Container(
-            image_src="icons/hamburger_icon.png",
-            padding=10,
-            width=62,
-            height=55,
-            on_click=self.hamburger_btn_on_click,
-        )
-        self.default_mode()
-
-    def hamburger_btn_on_click(self, e):
-        self.is_default = not self.is_default
-        if self.is_default:
-            self.default_mode()
-        else:
-            self.featured_mode()
-
-    def default_mode(self):
-        self.view.current.offset = ft.transform.Offset(-2, 0)
-        self.page.update()
-        sleep(0.31)
-
-        super.__setattr__(self, "bgcolor", ft.colors.TRANSPARENT)
-        self.hamburger_btn.image_src = "icons/hamburger_icon.png"
-        self.view.current.offset = ft.transform.Offset(0, 0)
-        self.view.current.content = ft.Column(
-            controls=[
-                self.hamburger_btn,
-                ft.Container(
+        self.default = ft.Container(
                     content=ft.Column(
                         controls=[
                             ft.Text(
@@ -111,23 +94,9 @@ class SideBar(ft.Container):
                     expand=True,
                     margin=ft.margin.only(bottom=130),
                     alignment=ft.alignment.bottom_right,
-                ),
-            ]
-        )
-        self.page.update()
-
-    def featured_mode(self):
-        self.view.current.offset = ft.transform.Offset(-2, 0)
-        self.page.update()
-        sleep(0.31)
-
-        super.__setattr__(self, "bgcolor", "#07184f")
-        self.hamburger_btn.image_src = "icons/hamburger_alt_icon.png"
-        self.view.current.offset = ft.transform.Offset(0, 0)
-        self.view.current.content = ft.Column(
-            controls=[
-                self.hamburger_btn,
-                ft.Container(
+                )
+        
+        self.featured = ft.Container(
                     content=ft.Column(
                         controls=[
                             ft.Text(
@@ -170,16 +139,47 @@ class SideBar(ft.Container):
                                 margin=ft.margin.only(top=30, left=20),
                                 alignment=ft.alignment.top_left,
                             )
-                        ],
-                        spacing=0,
-                        alignment=ft.MainAxisAlignment.START,
-                        horizontal_alignment=ft.CrossAxisAlignment.START,
-                    ),
-                    padding=ft.padding.only(top=70, left=30),
-                )
-            ],
-        )
+                            ],
+                            spacing=0,
+                            alignment=ft.MainAxisAlignment.START,
+                            horizontal_alignment=ft.CrossAxisAlignment.START,
+                        ),
+                        padding=ft.padding.only(top=70, left=30),
+                    )
+        self.view.current.content.controls.append(self.default)
 
+        self.page = page
+        # self.default_mode()
+
+    def hamburger_btn_on_click(self, e):
+        self.is_default = not self.is_default
+        if self.is_default:
+            self.default_mode()
+        else:
+            self.featured_mode()
+
+    def default_mode(self):
+        self.view.current.offset = ft.transform.Offset(-2, 0)
+        self.page.update()
+        sleep(0.31)
+
+        super.__setattr__(self, "bgcolor", ft.colors.TRANSPARENT)
+        self.hamburger_btn.image_src = "icons/hamburger_icon.png"
+        self.view.current.offset = ft.transform.Offset(0, 0)
+        self.view.current.content.controls.pop()
+        self.view.current.content.controls.append(self.default)
+        self.page.update()
+
+    def featured_mode(self):
+        self.view.current.offset = ft.transform.Offset(-2, 0)
+        self.page.update()
+        sleep(0.31)
+
+        super.__setattr__(self, "bgcolor", "#07184f")
+        self.hamburger_btn.image_src = "icons/hamburger_alt_icon.png"
+        self.view.current.offset = ft.transform.Offset(0, 0)
+        self.view.current.content.controls.pop()
+        self.view.current.content.controls.append(self.featured)
         self.page.update()
 
 
