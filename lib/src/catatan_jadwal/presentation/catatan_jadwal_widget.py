@@ -19,7 +19,7 @@ class HomeButton(ft.Container):
             width=64,
             height=64,
             padding=ft.padding.only(top=0, left=0, bottom=0, right=0),
-            margin=ft.margin.only(bottom = 600, left=70),
+            margin=ft.margin.only(bottom = 600, left=70, top=70),
         )
         self.page = page
 
