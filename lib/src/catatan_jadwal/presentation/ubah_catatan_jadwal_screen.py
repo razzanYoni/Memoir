@@ -360,6 +360,7 @@ def main(page: ft.Page, id_catatan_jadwal: int):
 
     def hapus_catatan_jadwal(e):
         page.dialog = delete_dialog
+        _catatan_jadwal_controller.Hapus(id_catatan_jadwal)
         delete_dialog.open = True
         page.update()
 
@@ -369,6 +370,7 @@ def main(page: ft.Page, id_catatan_jadwal: int):
         page.update()
 
     def tambah_catatan_jadwal(e):
+        _catatan_jadwal_controller.Tambah(id_catatan_jadwal, '', nama_acara.value, desc_acara.value, '' )
         page.snack_bar.content.value = "Catatan Jadwal berhasil ditambahkan"
         page.snack_bar.open = True
         page.update()
