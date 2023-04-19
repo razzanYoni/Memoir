@@ -23,7 +23,7 @@ class CalendarButton2(ft.Container):
         super().__init__(
             image_src="assets/icons/jadwal_button2.png",
             on_click="",
-            width=380,
+            width=300,
             height=64,
             margin=17
         )
@@ -57,7 +57,7 @@ class Reminders2(ft.UserControl):
         self.__nama_acara = self._catatan_jadwal.getNamaAcara()
         self.__desc_acara = self._catatan_jadwal.getDescAcara()
         # self.__desc_acara = self.getDescAcara() 
-        nama_acara = ft.TextField(
+        self.nama_acara = ft.TextField(
             border_width=0,
             width=800,
             height=88,
@@ -74,7 +74,7 @@ class Reminders2(ft.UserControl):
                 font_family="Inter Light",
             ),
         )
-        desc_acara = ft.TextField(
+        self.desc_acara = ft.TextField(
                 border_width=0,
                 max_lines=1,
                 multiline=False,
@@ -97,7 +97,7 @@ class Reminders2(ft.UserControl):
         return ft.Column(
             controls=[
                 ft.Container(
-                    content=nama_acara,
+                    content=self.nama_acara,
                     width="800",
                     height="85",
                     bgcolor="#444980",
@@ -106,7 +106,7 @@ class Reminders2(ft.UserControl):
                     margin=ft.margin.only(bottom=22, right=70, left=0),
                 ),
                 ft.Container(
-                    content = desc_acara,
+                    content = self.desc_acara,
                     width="800",
                     height="185",
                     bgcolor="#444980",
@@ -368,14 +368,15 @@ def main(page: ft.Page, id_catatan_jadwal: int):
         page.dialog = cancel_dialog
         page.dialog.open = True
         page.update()
-
+    
     def tambah_catatan_jadwal(e):
-        _catatan_jadwal_controller.Tambah(id_catatan_jadwal, '', nama_acara.value, desc_acara.value, '' )
+        _catatan_jadwal_controller.Tambah(date.get_date(), time.get_time(), notification.reminders.nama_acara.value , notification.reminders.desc_acara.value , '' )
         page.snack_bar.content.value = "Catatan Jadwal berhasil ditambahkan"
         page.snack_bar.open = True
         page.update()
-
-        page.clean()
+        print(nama_acara.value)
+        print(desc_acara.value)
+        page.controls.clear()
         catatan_jadwal_screen.main(page)
         page.update()
 
@@ -460,15 +461,32 @@ def main(page: ft.Page, id_catatan_jadwal: int):
         content=ft.Column(
         controls=[
             notification,
-            dlm_right
+            dlm_right,
+            # nama_acara,
+            # desc_acara,
         ]
         )
     )
-
+    date = date_picker.DatePicker()
+    time = time_picker.TimePicker()
     page.add(
+        
         ft.Container(
             content=ft.Row(
-            controls=[home_button, left_column, right_column],
+            # controls=[home_button, 
+            #           left_column,
+            #             ft.Column(
+            #                 controls=[notification, dlm_right, date, time],
+            #             )
+            #           ],
+            controls=[ 
+                        ft.Column(
+                            controls=[home_button, date, time], 
+                            spacing=0,
+                            alignment=ft.MainAxisAlignment.START,
+                            horizontal_alignment=ft.CrossAxisAlignment.START
+                        ), left_column, notification
+            ],
             visible=True,
             expand=True,
             spacing=0,
