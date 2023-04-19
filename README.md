@@ -37,20 +37,16 @@ Memoir is a software that can be used to perform various kinds of tasks, such as
 │       ├── artikel
 │       ├── catatan_jadwal
 │       ├── catatan_kegiatan
-│       ├── catatam_target
+│       ├── catatan_target
 │       └── utilities
 │
 ├── tests
-│   ├── integration_tests
-│   ├── system_tests
 │   └── unit_tests
 │       └── lib
 |           └── src
-│               ├── artikel
-│               ├── catatan_jadwal
-│               ├── catatan_kegiatan
-│               ├── catatam_target
-│               └── utilities
+│               ├── test_artikel.py
+│               ├── test_catatan_kegiatan.py
+│               └── test_catatan_target.py
 │
 │   .gitignore
 │   Memoir.py
